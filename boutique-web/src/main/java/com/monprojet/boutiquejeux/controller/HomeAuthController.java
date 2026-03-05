@@ -13,14 +13,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
-// ── HOME ──────────────────────────────────────────────────────────────
 @Controller
 class HomeController {
     @GetMapping("/")
     String home() { return "index"; }
 }
 
-// ── AUTH ──────────────────────────────────────────────────────────────
 @Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -53,10 +51,11 @@ class AuthController {
                 "pseudo",      form.getPseudo(),
                 "email",       form.getEmail(),
                 "motDePasse",  form.getMotDePasse(),
-                "telephone",   form.getTelephone() != null ? form.getTelephone() : "",
+                "telephone",   form.getTelephone(),
+                "dateNaissance", form.getDateNaissance(),
                 "rgpdConsent", form.getRgpdConsent()
             ));
-            // Stocker le token JWT en session pour les appels API suivants
+
             if (resp != null && resp.get("accessToken") != null) {
                 session.setAttribute("jwt", resp.get("accessToken"));
                 session.setAttribute("userEmail", resp.get("email"));

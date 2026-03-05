@@ -132,7 +132,7 @@ CREATE TABLE `audit_log` (
   `user_identifier` varchar(100) DEFAULT NULL,
   `date_operation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_audit`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +141,7 @@ CREATE TABLE `audit_log` (
 
 LOCK TABLES `audit_log` WRITE;
 /*!40000 ALTER TABLE `audit_log` DISABLE KEYS */;
+INSERT INTO `audit_log` VALUES (1,'client','UPDATE',3,'{\"email\": \"john.Rambo@gmalo.cul\", \"niveau\": 1, \"pseudo\": \"Rambo\", \"deleted\": 0, \"rgpd_consent\": 1}','{\"email\": \"john.Rambo@gmalo.cul\", \"niveau\": 1, \"pseudo\": \"Rambo\", \"deleted\": 0, \"rgpd_consent\": 1}',NULL,'2026-03-05 16:08:25'),(2,'client','UPDATE',2,'{\"email\": \"juju.taesch@gmail.com\", \"niveau\": 1, \"pseudo\": \"GooDSpeeD57\", \"deleted\": 0, \"rgpd_consent\": 1}','{\"email\": \"juju.taesch@gmail.com\", \"niveau\": 1, \"pseudo\": \"GooDSpeeD57\", \"deleted\": 0, \"rgpd_consent\": 1}',NULL,'2026-03-05 16:08:25'),(3,'client','UPDATE',4,'{\"email\": \"Clarc.Kent@dayliplanet.com\", \"niveau\": 1, \"pseudo\": \"Superman\", \"deleted\": 0, \"rgpd_consent\": 1}','{\"email\": \"Clarc.Kent@dayliplanet.com\", \"niveau\": 1, \"pseudo\": \"Superman\", \"deleted\": 0, \"rgpd_consent\": 1}',NULL,'2026-03-05 16:24:46'),(4,'client','UPDATE',4,'{\"email\": \"Clarc.Kent@dayliplanet.com\", \"niveau\": 1, \"pseudo\": \"Superman\", \"deleted\": 0, \"rgpd_consent\": 1}','{\"email\": \"Clarc.Kent@dayliplanet.com\", \"niveau\": 1, \"pseudo\": \"Superman\", \"deleted\": 0, \"rgpd_consent\": 1}',NULL,'2026-03-05 16:50:41'),(5,'client','UPDATE',5,'{\"email\": \"Bruce.Wayne@tmalo.cul\", \"niveau\": 1, \"pseudo\": \"Batman\", \"deleted\": 0, \"rgpd_consent\": 1}','{\"email\": \"Bruce.Wayne@tmalo.cul\", \"niveau\": 1, \"pseudo\": \"Batman\", \"deleted\": 0, \"rgpd_consent\": 1}',NULL,'2026-03-05 16:50:41'),(6,'client','UPDATE',5,'{\"email\": \"Bruce.Wayne@tmalo.cul\", \"niveau\": 1, \"pseudo\": \"Batman\", \"deleted\": 0, \"rgpd_consent\": 1}','{\"email\": \"Bruce.Wayne@tmalo.cul\", \"niveau\": 1, \"pseudo\": \"Batman\", \"deleted\": 0, \"rgpd_consent\": 1}',NULL,'2026-03-05 16:52:32');
 /*!40000 ALTER TABLE `audit_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,9 +284,9 @@ CREATE TABLE `client` (
   `pseudo` varchar(50) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `prenom` varchar(100) NOT NULL,
-  `date_naissance` date DEFAULT NULL,
+  `date_naissance` date NOT NULL,
   `email` varchar(150) NOT NULL,
-  `telephone` varchar(20) DEFAULT NULL,
+  `telephone` varchar(20) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   `numero_carte_fidelite` varchar(50) DEFAULT NULL,
   `id_type_fidelite` bigint NOT NULL,
@@ -300,6 +301,7 @@ CREATE TABLE `client` (
   PRIMARY KEY (`id_client`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `telephone_UNIQUE` (`telephone`),
   UNIQUE KEY `numero_carte_fidelite` (`numero_carte_fidelite`),
   KEY `idx_client_email` (`email`),
   KEY `idx_client_fidelite` (`id_type_fidelite`),
@@ -307,7 +309,7 @@ CREATE TABLE `client` (
   KEY `idx_client_demande_suppression` (`demande_suppression`),
   KEY `idx_client_rgpd_consent` (`rgpd_consent`),
   CONSTRAINT `fk_client_fidelite` FOREIGN KEY (`id_type_fidelite`) REFERENCES `type_fidelite` (`id_type_fidelite`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -316,7 +318,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (2,'GooDSpeeD57','Taesch','julien',NULL,'juju.taesch@gmail.com','0612345678','$2a$10$aOtfqngKKjezTL9tbOkQ7eMKx4GYF3gGUm6psaCTzpPFllSwOi7z.','DEA2311D-F6C7-44',1,0,1,'2026-03-05 11:57:30','127.0.0.1',0,NULL,'2026-03-05 11:57:30','2026-03-05 11:57:30');
+INSERT INTO `client` VALUES (2,'GooDSpeeD57','Taesch','julien','2026-06-05','juju.taesch@gmail.com','0612345678','$2a$10$aOtfqngKKjezTL9tbOkQ7eMKx4GYF3gGUm6psaCTzpPFllSwOi7z.','DEA2311D-F6C7-44',1,0,1,'2026-03-05 11:57:30','127.0.0.1',0,NULL,'2026-03-05 11:57:30','2026-03-05 16:08:25'),(3,'Rambo','John','Rambo','1982-05-14','john.Rambo@gmalo.cul','0610454894','$2a$10$x8XRO36Ga1HIrHfT4MI/2O9cJvHCB20kXC.bs5b4iaaVhi4taksXu','FF04EA51-08D7-40',1,0,1,'2026-03-05 15:46:01','127.0.0.1',0,NULL,'2026-03-05 15:46:01','2026-03-05 16:08:25'),(4,'Superman','Kent','Clarc','2026-03-11','Clarc.Kent@dayliplanet.com','0612345677','$2a$10$dCXMmKSkwwEWm2OF/KiRzOOdLkraQb1XqwKnYDscTzIyVJ/3DgGQW','F7634A43-00C7-4C',1,0,1,'2026-03-05 16:11:58','127.0.0.1',0,NULL,'2026-03-05 16:11:58','2026-03-05 16:50:41'),(5,'Batman','Wayne','Bruce','2026-03-05','Bruce.Wayne@tmalo.cul','0612345679','$2a$10$ZeXC.uUbO8pxFsTAWLODwO8UPASVKheQ3mMUOS8CRGn3xOeIJLw1q','28852DE0-F1EB-47',1,0,1,'2026-03-05 16:31:38','127.0.0.1',0,NULL,'2026-03-05 16:31:38','2026-03-05 16:52:32');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -2648,4 +2650,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-05 13:26:56
+-- Dump completed on 2026-03-05 16:54:27
