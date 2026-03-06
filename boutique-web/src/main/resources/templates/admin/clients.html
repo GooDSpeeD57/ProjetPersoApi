@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: html('Clients', ~{::main})}">
+<main>
+<div class="d-flex" style="min-height:calc(100vh - 56px)">
+    <div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
+    <div class="flex-grow-1 p-4">
+
+        <h4 class="fw-bold mb-4"><i class="bi bi-person-lines-fill me-2 text-purple"></i>Base clients</h4>
+
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Client</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Points</th>
+                                <th>Ultimate</th>
+                                <th>Inscrit le</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${clients == null or clients.get('content') == null}">
+                                <td colspan="7" class="text-center py-5 text-muted">
+                                    <i class="bi bi-people fs-1 d-block mb-2"></i>Aucun client
+                                </td>
+                            </tr>
+                            <tr th:each="c : ${clients?.get('content')}">
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div style="width:36px;height:36px;background:#a78bfa33;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;color:#7c3aed;font-size:.8rem"
+                                             th:text="${c.get('prenom')?.toString()?.substring(0,1)} + ${c.get('nom')?.toString()?.substring(0,1)}">AB</div>
+                                        <div class="fw-semibold small" th:text="${c.get('prenom')} + ' ' + ${c.get('nom')}">–</div>
+                                    </div>
+                                </td>
+                                <td class="text-muted small" th:text="${c.get('email')}">–</td>
+                                <td class="text-muted small" th:text="${c.get('telephone')} ?: '–'">–</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border" th:text="${c.get('pointsSolde')} ?: '0'">0</span>
+                                </td>
+                                <td>
+                                    <span class="badge" style="background:linear-gradient(135deg,#7c3aed,#f59e0b);color:#fff" th:if="${c.get('ultimate')}">⭐ ULTIMATE</span>
+                                    <span class="text-muted small" th:unless="${c.get('ultimate')}">–</span>
+                                </td>
+                                <td class="text-muted small" th:text="${c.get('dateInscription')}">–</td>
+                                <td>
+                                    <form th:action="@{/admin/clients/supprimer/{id}(id=${c.get('id')})}" method="post"
+                                          onsubmit="return confirm('Supprimer ce client ?')">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash3"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center p-3 border-top" th:if="${clients?.get('totalPages') > 1}">
+                    <small class="text-muted">
+                        Page <span th:text="${page + 1}">1</span> sur <span th:text="${clients?.get('totalPages')}">1</span>
+                    </small>
+                    <div class="d-flex gap-2">
+                        <a th:if="${page > 0}" th:href="@{/admin/clients(page=${page - 1})}" class="btn btn-sm btn-outline-secondary">‹ Préc.</a>
+                        <a th:if="${page + 1 < clients?.get('totalPages')}" th:href="@{/admin/clients(page=${page + 1})}" class="btn btn-sm btn-outline-secondary">Suiv. ›</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</html>

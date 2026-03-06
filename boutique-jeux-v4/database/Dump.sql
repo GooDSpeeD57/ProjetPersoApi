@@ -55,11 +55,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_expiration_abonnement` BEFORE UPDATE ON `abonnement_client` FOR EACH ROW BEGIN
     DECLARE v_id_premium BIGINT;
@@ -102,7 +102,7 @@ CREATE TABLE `adresse` (
   CONSTRAINT `fk_adresse_magasin` FOREIGN KEY (`id_magasin`) REFERENCES `magasin` (`id_magasin`) ON DELETE CASCADE,
   CONSTRAINT `fk_adresse_type_adresse` FOREIGN KEY (`id_type_adresse`) REFERENCES `type_adresse` (`id_type_adresse`),
   CONSTRAINT `chk_adresse_owner` CHECK ((((`id_client` is not null) and (`id_magasin` is null)) or ((`id_client` is null) and (`id_magasin` is not null))))
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `adresse` (
 
 LOCK TABLES `adresse` WRITE;
 /*!40000 ALTER TABLE `adresse` DISABLE KEYS */;
-INSERT INTO `adresse` VALUES (1,NULL,1,2,'Centre Commercial Cora — Route de Metz','Moulins-lès-Metz','57160','France'),(2,NULL,1,2,'Centre Commercial Cora — Route de Metz','Moulins-lès-Metz','57160','France'),(3,NULL,1,2,'Centre Commercial Cora — Route de Metz','Moulins-lès-Metz','57160','France'),(4,NULL,1,2,'Centre Commercial Cora — Route de Metz','Moulins-lès-Metz','57160','France');
+INSERT INTO `adresse` VALUES (1,NULL,1,2,'Centre Commercial Cora — Route de Metz','Moulins-lès-Metz','57160','France');
 /*!40000 ALTER TABLE `adresse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,11 +182,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_avis_achat_verifie` BEFORE INSERT ON `avis_produit` FOR EACH ROW BEGIN
     IF NOT EXISTS (
@@ -259,7 +259,7 @@ CREATE TABLE `categorie` (
   UNIQUE KEY `nom` (`nom`),
   KEY `fk_categorie_type` (`id_type_categorie`),
   CONSTRAINT `fk_categorie_type` FOREIGN KEY (`id_type_categorie`) REFERENCES `type_categorie` (`id_type_categorie`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,17 +318,17 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (2,'GooDSpeeD57','Taesch','julien','2026-06-05','juju.taesch@gmail.com','0612345678','$2a$10$aOtfqngKKjezTL9tbOkQ7eMKx4GYF3gGUm6psaCTzpPFllSwOi7z.','DEA2311D-F6C7-44',1,0,1,'2026-03-05 11:57:30','127.0.0.1',0,NULL,'2026-03-05 11:57:30','2026-03-05 16:08:25'),(3,'Rambo','John','Rambo','1982-05-14','john.Rambo@gmalo.cul','0610454894','$2a$10$x8XRO36Ga1HIrHfT4MI/2O9cJvHCB20kXC.bs5b4iaaVhi4taksXu','FF04EA51-08D7-40',1,0,1,'2026-03-05 15:46:01','127.0.0.1',0,NULL,'2026-03-05 15:46:01','2026-03-05 16:08:25'),(4,'Superman','Kent','Clarc','2026-03-11','Clarc.Kent@dayliplanet.com','0612345677','$2a$10$dCXMmKSkwwEWm2OF/KiRzOOdLkraQb1XqwKnYDscTzIyVJ/3DgGQW','F7634A43-00C7-4C',1,0,1,'2026-03-05 16:11:58','127.0.0.1',0,NULL,'2026-03-05 16:11:58','2026-03-05 16:50:41'),(5,'Batman','Wayne','Bruce','2026-03-05','Bruce.Wayne@tmalo.cul','0612345679','$2a$10$ZeXC.uUbO8pxFsTAWLODwO8UPASVKheQ3mMUOS8CRGn3xOeIJLw1q','28852DE0-F1EB-47',1,0,1,'2026-03-05 16:31:38','127.0.0.1',0,NULL,'2026-03-05 16:31:38','2026-03-05 16:52:32');
+INSERT INTO `client` VALUES (2,'GooDSpeeD57','Taesch','julien','2001-06-05','juju.taesch@gmail.com','0612345678','$2a$10$aOtfqngKKjezTL9tbOkQ7eMKx4GYF3gGUm6psaCTzpPFllSwOi7z.','DEA2311D-F6C7-44',1,0,1,'2026-03-05 11:57:30','127.0.0.1',0,NULL,'2026-03-05 11:57:30','2026-03-05 16:08:25'),(3,'Rambo','John','Rambo','1982-05-14','john.Rambo@gmalo.cul','0610454894','$2a$10$x8XRO36Ga1HIrHfT4MI/2O9cJvHCB20kXC.bs5b4iaaVhi4taksXu','FF04EA51-08D7-40',1,0,1,'2026-03-05 15:46:01','127.0.0.1',0,NULL,'2026-03-05 15:46:01','2026-03-05 16:08:25'),(4,'Superman','Kent','Clarc','2000-03-11','Clarc.Kent@dayliplanet.com','0612345677','$2a$10$dCXMmKSkwwEWm2OF/KiRzOOdLkraQb1XqwKnYDscTzIyVJ/3DgGQW','F7634A43-00C7-4C',1,0,1,'2026-03-05 16:11:58','127.0.0.1',0,NULL,'2026-03-05 16:11:58','2026-03-05 16:50:41'),(5,'Batman','Wayne','Bruce','1995-06-15','Bruce.Wayne@tmalo.cul','0612345679','$2a$10$ZeXC.uUbO8pxFsTAWLODwO8UPASVKheQ3mMUOS8CRGn3xOeIJLw1q','28852DE0-F1EB-47',1,0,1,'2026-03-05 16:31:38','127.0.0.1',0,NULL,'2026-03-05 16:31:38','2026-03-05 16:52:32');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_audit_client_update` AFTER UPDATE ON `client` FOR EACH ROW BEGIN
     INSERT INTO audit_log (table_name, operation_type, record_id, donnees_avant, donnees_apres)
@@ -370,7 +370,7 @@ CREATE TABLE `employe` (
   KEY `idx_employe_deleted` (`deleted`),
   CONSTRAINT `fk_employe_magasin` FOREIGN KEY (`id_magasin`) REFERENCES `magasin` (`id_magasin`),
   CONSTRAINT `fk_employe_role` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -416,11 +416,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_extension_garantie_update` AFTER INSERT ON `extension_garantie` FOR EACH ROW BEGIN
     UPDATE garantie
@@ -444,7 +444,7 @@ DROP TABLE IF EXISTS `facture`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `facture` (
   `id_facture` bigint NOT NULL AUTO_INCREMENT,
-  `id_client` bigint DEFAULT NULL COMMENT 'V9: NULL pour ventes anonymes en magasin',
+  `id_client` bigint DEFAULT NULL,
   `id_magasin` bigint NOT NULL,
   `id_employe` bigint DEFAULT NULL,
   `id_mode_paiement` bigint NOT NULL,
@@ -453,10 +453,10 @@ CREATE TABLE `facture` (
   `montant_total` decimal(10,2) NOT NULL DEFAULT '0.00',
   `montant_remise` decimal(10,2) NOT NULL DEFAULT '0.00',
   `montant_final` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `nom_client` varchar(100) DEFAULT NULL COMMENT 'V9: Pour les ventes anonymes en magasin',
-  `email_client` varchar(150) DEFAULT NULL COMMENT 'V9: Pour les retours/SAV',
-  `telephone_client` varchar(20) DEFAULT NULL COMMENT 'V9: Pour les retours/SAV',
-  `contexte_vente` enum('EN_LIGNE','EN_MAGASIN') NOT NULL DEFAULT 'EN_MAGASIN' COMMENT 'V9: EN_LIGNE = client obligatoire, EN_MAGASIN = anonyme possible',
+  `nom_client` varchar(100) DEFAULT NULL,
+  `email_client` varchar(150) DEFAULT NULL,
+  `telephone_client` varchar(20) DEFAULT NULL,
+  `contexte_vente` enum('EN_LIGNE','EN_MAGASIN') NOT NULL DEFAULT 'EN_MAGASIN',
   PRIMARY KEY (`id_facture`),
   KEY `fk_facture_mode_paiement` (`id_mode_paiement`),
   KEY `fk_facture_bon_achat` (`id_bon_achat`),
@@ -522,11 +522,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_garantie_numero_serie_unique` BEFORE INSERT ON `garantie` FOR EACH ROW BEGIN
     IF EXISTS (SELECT 1 FROM garantie WHERE numero_serie = NEW.numero_serie) THEN
@@ -561,7 +561,7 @@ CREATE TABLE `historique_points` (
   KEY `idx_histo_points_date` (`date_operation`),
   CONSTRAINT `fk_histo_client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`),
   CONSTRAINT `fk_histo_facture` FOREIGN KEY (`id_facture`) REFERENCES `facture` (`id_facture`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,6 +570,7 @@ CREATE TABLE `historique_points` (
 
 LOCK TABLES `historique_points` WRITE;
 /*!40000 ALTER TABLE `historique_points` DISABLE KEYS */;
+INSERT INTO `historique_points` VALUES (1,2,NULL,'BIENVENUE',10,'Points offerts à l\'inscription - Bienvenue !','2026-03-05 11:57:30'),(2,3,NULL,'BIENVENUE',10,'Points offerts à l\'inscription - Bienvenue !','2026-03-05 15:46:01'),(3,4,NULL,'BIENVENUE',10,'Points offerts à l\'inscription - Bienvenue !','2026-03-05 16:11:58'),(4,5,NULL,'BIENVENUE',10,'Points offerts à l\'inscription - Bienvenue !','2026-03-05 16:31:38');
 /*!40000 ALTER TABLE `historique_points` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -609,11 +610,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_after_insert_ligne_facture` AFTER INSERT ON `ligne_facture` FOR EACH ROW BEGIN
     DECLARE v_stock_actuel  INT;
@@ -640,11 +641,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_total_after_insert` AFTER INSERT ON `ligne_facture` FOR EACH ROW BEGIN
     UPDATE facture
@@ -660,11 +661,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_total_after_delete` AFTER DELETE ON `ligne_facture` FOR EACH ROW BEGIN
     UPDATE facture
@@ -726,7 +727,7 @@ CREATE TABLE `magasin` (
   `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modification` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_magasin`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -735,7 +736,7 @@ CREATE TABLE `magasin` (
 
 LOCK TABLES `magasin` WRITE;
 /*!40000 ALTER TABLE `magasin` DISABLE KEYS */;
-INSERT INTO `magasin` VALUES (1,'Micromania-Zing Moulins-lès-Metz','0387152750','moulins-les-metz@micromania.fr','2026-03-05 10:35:33','2026-03-05 10:35:33'),(2,'Micromania-Zing Moulins-lès-Metz','0387152750','moulins-les-metz@micromania.fr','2026-03-05 10:46:10','2026-03-05 10:46:10'),(3,'Micromania-Zing Moulins-lès-Metz','0387152750','moulins-les-metz@micromania.fr','2026-03-05 10:48:04','2026-03-05 10:48:04'),(4,'Micromania-Zing Moulins-lès-Metz','0387152750','moulins-les-metz@micromania.fr','2026-03-05 10:50:17','2026-03-05 10:50:17');
+INSERT INTO `magasin` VALUES (1,'Micromania-Zing Moulins-lès-Metz','0387152750','moulins-les-metz@micromania.fr','2026-03-05 10:35:33','2026-03-05 10:35:33');
 /*!40000 ALTER TABLE `magasin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -862,11 +863,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_check_planning` BEFORE INSERT ON `planning_employe` FOR EACH ROW BEGIN
     IF NEW.heure_fin <= NEW.heure_debut THEN
@@ -899,7 +900,7 @@ CREATE TABLE `points_fidelite` (
   CONSTRAINT `fk_points_client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE,
   CONSTRAINT `chk_achats_positif` CHECK ((`total_achats_annuel` >= 0)),
   CONSTRAINT `chk_solde_positif` CHECK ((`solde_points` >= 0))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -908,6 +909,7 @@ CREATE TABLE `points_fidelite` (
 
 LOCK TABLES `points_fidelite` WRITE;
 /*!40000 ALTER TABLE `points_fidelite` DISABLE KEYS */;
+INSERT INTO `points_fidelite` VALUES (1,2,10,0.00,'2026-03-05','2026-03-06 08:05:06'),(2,3,10,0.00,'2026-03-05','2026-03-06 08:05:06'),(3,4,10,0.00,'2026-03-05','2026-03-06 08:05:06'),(4,5,10,0.00,'2026-03-05','2026-03-06 08:05:06');
 /*!40000 ALTER TABLE `points_fidelite` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -932,7 +934,7 @@ CREATE TABLE `produit` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   `niveau_acces_min` varchar(20) NOT NULL DEFAULT 'NORMAL',
   `langue` varchar(10) NOT NULL DEFAULT 'fr',
-  `necessite_numero_serie` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'V9: Si TRUE, numéro de série obligatoire pour garantie',
+  `necessite_numero_serie` tinyint(1) NOT NULL DEFAULT '0',
   `date_creation` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modification` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_produit`),
@@ -946,7 +948,7 @@ CREATE TABLE `produit` (
   CONSTRAINT `fk_produit_categorie` FOREIGN KEY (`id_categorie`) REFERENCES `categorie` (`id_categorie`),
   CONSTRAINT `chk_niveau_acces_min` CHECK ((`niveau_acces_min` in (_utf8mb4'NORMAL',_utf8mb4'PREMIUM',_utf8mb4'ULTIMATE'))),
   CONSTRAINT `chk_pegi` CHECK ((`pegi` between 3 and 18))
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -955,17 +957,17 @@ CREATE TABLE `produit` (
 
 LOCK TABLES `produit` WRITE;
 /*!40000 ALTER TABLE `produit` DISABLE KEYS */;
-INSERT INTO `produit` VALUES (1,'Marvel Spider-Man 2','Aventure de Peter Parker et Miles Morales dans New York.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(2,'God of War Ragnarok','Kratos et Atreus affrontent le Ragnarok.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(3,'Final Fantasy VII Rebirth','La suite de Remake. Cloud quitte Midgar dans une aventure epique.',1,NULL,'Square Enix',NULL,16,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(4,'Helldivers 2','TPS cooperatif 4 joueurs. Defendez la Super-Terre.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(5,'Stellar Blade','Action RPG exclusif PS5. Eve combat pour liberer la Terre.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'PREMIUM','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(6,'Forza Horizon 5','Course en monde ouvert au Mexique. Plus de 500 voitures.',2,NULL,'Microsoft',NULL,3,'Xbox Series',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(7,'Halo Infinite','Master Chief est de retour. FPS emblematique Xbox.',2,NULL,'Microsoft',NULL,16,'Xbox Series',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(8,'Zelda Tears of the Kingdom','Link explore Hyrule et les iles celestes.',3,NULL,'Nintendo',NULL,12,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(9,'Mario Kart 8 Deluxe','Jeu de course Nintendo. 48 circuits, multijoueur.',3,NULL,'Nintendo',NULL,3,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(10,'Pokemon Ecarlate','Explorez la region de Paldea en monde ouvert.',3,NULL,'Nintendo',NULL,7,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(11,'Super Mario Bros Wonder','Mario 2D revolutionnaire avec les Fleurs Merveille.',3,NULL,'Nintendo',NULL,3,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(12,'Baldurs Gate 3','RPG ultime D&D 5e. Liberte totale, co-op 4 joueurs.',4,NULL,'Larian Studios',NULL,18,'PC',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(13,'Cyberpunk 2077 Phantom Liberty','RPG futuriste dans Night City. Inclut extension.',4,NULL,'CD Projekt Red',NULL,18,'PC',1,0,'ULTIMATE','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(14,'PlayStation 5 Standard','SSD ultra-rapide, DualSense, ray-tracing natif.',5,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(15,'Xbox Series X','4K, 120fps, Game Pass compatible.',5,NULL,'Microsoft',NULL,NULL,'Xbox Series',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(16,'Nintendo Switch OLED','Ecran OLED 7 pouces. Mode portable et TV.',5,NULL,'Nintendo',NULL,NULL,'Nintendo Switch',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(17,'Manette DualSense Blanc','Retour haptique et gachettes adaptatives.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(18,'Manette DualSense Noir','Version noire de la DualSense.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(19,'Casque Pulse 3D PS5','Audio 3D Tempest, sans fil, officiel Sony.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(20,'Joy-Con Switch Bleu Rouge','Paire officielle Nintendo. Gyroscope, NFC.',6,NULL,'Nintendo',NULL,NULL,'Nintendo Switch',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(21,'Figurine Amiibo Link','Figurine NFC compatible Zelda Tears of the Kingdom.',7,NULL,'Nintendo',NULL,NULL,NULL,1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(22,'Steelbook God of War','Boitier collector edition limitee.',7,NULL,'Sony Interactive Entertainment',NULL,NULL,NULL,1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(23,'Marvel Spider-Man 2','Aventure de Peter Parker et Miles Morales dans New York.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(24,'God of War Ragnarok','Kratos et Atreus affrontent le Ragnarok.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(25,'Final Fantasy VII Rebirth','La suite de Remake. Cloud quitte Midgar dans une aventure epique.',1,NULL,'Square Enix',NULL,16,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(26,'Helldivers 2','TPS cooperatif 4 joueurs. Defendez la Super-Terre.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(27,'Stellar Blade','Action RPG exclusif PS5. Eve combat pour liberer la Terre.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'PREMIUM','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(28,'Forza Horizon 5','Course en monde ouvert au Mexique. Plus de 500 voitures.',2,NULL,'Microsoft',NULL,3,'Xbox Series',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(29,'Halo Infinite','Master Chief est de retour. FPS emblematique Xbox.',2,NULL,'Microsoft',NULL,16,'Xbox Series',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(30,'Zelda Tears of the Kingdom','Link explore Hyrule et les iles celestes.',3,NULL,'Nintendo',NULL,12,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(31,'Mario Kart 8 Deluxe','Jeu de course Nintendo. 48 circuits, multijoueur.',3,NULL,'Nintendo',NULL,3,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(32,'Pokemon Ecarlate','Explorez la region de Paldea en monde ouvert.',3,NULL,'Nintendo',NULL,7,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(33,'Super Mario Bros Wonder','Mario 2D revolutionnaire avec les Fleurs Merveille.',3,NULL,'Nintendo',NULL,3,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(34,'Baldurs Gate 3','RPG ultime D&D 5e. Liberte totale, co-op 4 joueurs.',4,NULL,'Larian Studios',NULL,18,'PC',1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(35,'Cyberpunk 2077 Phantom Liberty','RPG futuriste dans Night City. Inclut extension.',4,NULL,'CD Projekt Red',NULL,18,'PC',1,0,'ULTIMATE','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(36,'PlayStation 5 Standard','SSD ultra-rapide, DualSense, ray-tracing natif.',5,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(37,'Xbox Series X','4K, 120fps, Game Pass compatible.',5,NULL,'Microsoft',NULL,NULL,'Xbox Series',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(38,'Nintendo Switch OLED','Ecran OLED 7 pouces. Mode portable et TV.',5,NULL,'Nintendo',NULL,NULL,'Nintendo Switch',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(39,'Manette DualSense Blanc','Retour haptique et gachettes adaptatives.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(40,'Manette DualSense Noir','Version noire de la DualSense.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(41,'Casque Pulse 3D PS5','Audio 3D Tempest, sans fil, officiel Sony.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(42,'Joy-Con Switch Bleu Rouge','Paire officielle Nintendo. Gyroscope, NFC.',6,NULL,'Nintendo',NULL,NULL,'Nintendo Switch',1,0,'NORMAL','fr',1,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(43,'Figurine Amiibo Link','Figurine NFC compatible Zelda Tears of the Kingdom.',7,NULL,'Nintendo',NULL,NULL,NULL,1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18'),(44,'Steelbook God of War','Boitier collector edition limitee.',7,NULL,'Sony Interactive Entertainment',NULL,NULL,NULL,1,0,'NORMAL','fr',0,'2026-03-05 10:50:18','2026-03-05 10:50:18');
+INSERT INTO `produit` VALUES (1,'Marvel Spider-Man 2','Aventure de Peter Parker et Miles Morales dans New York.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(2,'God of War Ragnarok','Kratos et Atreus affrontent le Ragnarok.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(3,'Final Fantasy VII Rebirth','La suite de Remake. Cloud quitte Midgar dans une aventure epique.',1,NULL,'Square Enix',NULL,16,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(4,'Helldivers 2','TPS cooperatif 4 joueurs. Defendez la Super-Terre.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(5,'Stellar Blade','Action RPG exclusif PS5. Eve combat pour liberer la Terre.',1,NULL,'Sony Interactive Entertainment',NULL,18,'PS5',1,0,'PREMIUM','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(6,'Forza Horizon 5','Course en monde ouvert au Mexique. Plus de 500 voitures.',2,NULL,'Microsoft',NULL,3,'Xbox Series',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(7,'Halo Infinite','Master Chief est de retour. FPS emblematique Xbox.',2,NULL,'Microsoft',NULL,16,'Xbox Series',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(8,'Zelda Tears of the Kingdom','Link explore Hyrule et les iles celestes.',3,NULL,'Nintendo',NULL,12,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(9,'Mario Kart 8 Deluxe','Jeu de course Nintendo. 48 circuits, multijoueur.',3,NULL,'Nintendo',NULL,3,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(10,'Pokemon Ecarlate','Explorez la region de Paldea en monde ouvert.',3,NULL,'Nintendo',NULL,7,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(11,'Super Mario Bros Wonder','Mario 2D revolutionnaire avec les Fleurs Merveille.',3,NULL,'Nintendo',NULL,3,'Nintendo Switch',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(12,'Baldurs Gate 3','RPG ultime D&D 5e. Liberte totale, co-op 4 joueurs.',4,NULL,'Larian Studios',NULL,18,'PC',1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(13,'Cyberpunk 2077 Phantom Liberty','RPG futuriste dans Night City. Inclut extension.',4,NULL,'CD Projekt Red',NULL,18,'PC',1,0,'ULTIMATE','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(14,'PlayStation 5 Standard','SSD ultra-rapide, DualSense, ray-tracing natif.',5,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(15,'Xbox Series X','4K, 120fps, Game Pass compatible.',5,NULL,'Microsoft',NULL,NULL,'Xbox Series',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(16,'Nintendo Switch OLED','Ecran OLED 7 pouces. Mode portable et TV.',5,NULL,'Nintendo',NULL,NULL,'Nintendo Switch',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(17,'Manette DualSense Blanc','Retour haptique et gachettes adaptatives.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(18,'Manette DualSense Noir','Version noire de la DualSense.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(19,'Casque Pulse 3D PS5','Audio 3D Tempest, sans fil, officiel Sony.',6,NULL,'Sony Interactive Entertainment',NULL,NULL,'PS5',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(20,'Joy-Con Switch Bleu Rouge','Paire officielle Nintendo. Gyroscope, NFC.',6,NULL,'Nintendo',NULL,NULL,'Nintendo Switch',1,0,'NORMAL','fr',1,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(21,'Figurine Amiibo Link','Figurine NFC compatible Zelda Tears of the Kingdom.',7,NULL,'Nintendo',NULL,NULL,NULL,1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04'),(22,'Steelbook God of War','Boitier collector edition limitee.',7,NULL,'Sony Interactive Entertainment',NULL,NULL,NULL,1,0,'NORMAL','fr',0,'2026-03-05 10:48:04','2026-03-05 10:48:04');
 /*!40000 ALTER TABLE `produit` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_produit_numero_serie_auto` BEFORE INSERT ON `produit` FOR EACH ROW BEGIN
     DECLARE v_type_code VARCHAR(50);
@@ -1018,11 +1020,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_image_principale_before_insert` BEFORE INSERT ON `produit_image` FOR EACH ROW BEGIN
     IF NEW.principale = TRUE THEN
@@ -1037,11 +1039,11 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_image_principale_before_update` BEFORE UPDATE ON `produit_image` FOR EACH ROW BEGIN
     IF NEW.principale = TRUE AND OLD.principale = FALSE THEN
@@ -1073,7 +1075,7 @@ CREATE TABLE `produit_prix` (
   CONSTRAINT `fk_produit_prix_produit` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`) ON DELETE CASCADE,
   CONSTRAINT `fk_produit_prix_statut_produit` FOREIGN KEY (`id_statut_produit`) REFERENCES `statut_produit` (`id_statut_produit`),
   CONSTRAINT `chk_prix_positif` CHECK ((`prix` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1082,7 +1084,7 @@ CREATE TABLE `produit_prix` (
 
 LOCK TABLES `produit_prix` WRITE;
 /*!40000 ALTER TABLE `produit_prix` DISABLE KEYS */;
-INSERT INTO `produit_prix` VALUES (1,1,1,79.99),(2,2,1,69.99),(3,2,2,34.99),(4,3,1,79.99),(5,4,1,39.99),(6,5,1,79.99),(7,6,1,59.99),(8,7,1,49.99),(9,7,2,19.99),(10,8,1,59.99),(11,9,1,59.99),(12,10,1,59.99),(13,11,1,59.99),(14,12,1,59.99),(15,13,1,49.99),(16,14,1,549.99),(17,15,1,499.99),(18,16,1,349.99),(19,17,1,74.99),(20,18,1,74.99),(21,19,1,99.99),(22,20,1,79.99),(23,21,1,24.99),(24,22,1,19.99),(25,23,1,79.99),(26,24,1,69.99),(27,24,2,34.99),(28,25,1,79.99),(29,26,1,39.99),(30,27,1,79.99),(31,28,1,59.99),(32,29,1,49.99),(33,29,2,19.99),(34,30,1,59.99),(35,31,1,59.99),(36,32,1,59.99),(37,33,1,59.99),(38,34,1,59.99),(39,35,1,49.99),(40,36,1,549.99),(41,37,1,499.99),(42,38,1,349.99),(43,39,1,74.99),(44,40,1,74.99),(45,41,1,99.99),(46,42,1,79.99),(47,43,1,24.99),(48,44,1,19.99);
+INSERT INTO `produit_prix` VALUES (1,1,1,79.99),(2,2,1,69.99),(3,2,2,34.99),(4,3,1,79.99),(5,4,1,39.99),(6,5,1,79.99),(7,6,1,59.99),(8,7,1,49.99),(9,7,2,19.99),(10,8,1,59.99),(11,9,1,59.99),(12,10,1,59.99),(13,11,1,59.99),(14,12,1,59.99),(15,13,1,49.99),(16,14,1,549.99),(17,15,1,499.99),(18,16,1,349.99),(19,17,1,74.99),(20,18,1,74.99),(21,19,1,99.99),(22,20,1,79.99),(23,21,1,24.99),(24,22,1,19.99);
 /*!40000 ALTER TABLE `produit_prix` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1153,11 +1155,11 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_check_promotion` BEFORE INSERT ON `promotion` FOR EACH ROW BEGIN
     IF NEW.date_fin <= NEW.date_debut THEN
@@ -1190,7 +1192,7 @@ CREATE TABLE `ratio_points` (
   CONSTRAINT `fk_ratio_type_categorie` FOREIGN KEY (`id_type_categorie`) REFERENCES `type_categorie` (`id_type_categorie`),
   CONSTRAINT `fk_ratio_type_fidelite` FOREIGN KEY (`id_type_fidelite`) REFERENCES `type_fidelite` (`id_type_fidelite`),
   CONSTRAINT `chk_ratio_positif` CHECK ((`ratio` > 0))
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1376,7 +1378,7 @@ CREATE TABLE `stockage` (
   CONSTRAINT `fk_stockage_magasin` FOREIGN KEY (`id_magasin`) REFERENCES `magasin` (`id_magasin`),
   CONSTRAINT `fk_stockage_produit` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`),
   CONSTRAINT `chk_stock_positive` CHECK ((`quantite` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1385,7 +1387,7 @@ CREATE TABLE `stockage` (
 
 LOCK TABLES `stockage` WRITE;
 /*!40000 ALTER TABLE `stockage` DISABLE KEYS */;
-INSERT INTO `stockage` VALUES (1,1,3,8),(2,1,2,8),(3,1,1,8),(4,2,3,8),(5,2,2,8),(6,2,1,8),(7,3,3,8),(8,3,2,8),(9,3,1,8),(10,4,3,15),(11,4,2,15),(12,4,1,15),(13,5,3,8),(14,5,2,8),(15,5,1,8),(16,6,3,15),(17,6,2,15),(18,6,1,15),(19,7,3,15),(20,7,2,15),(21,7,1,15),(22,8,3,15),(23,8,2,15),(24,8,1,15),(25,9,3,15),(26,9,2,15),(27,9,1,15),(28,10,3,15),(29,10,2,15),(30,10,1,15),(31,11,3,15),(32,11,2,15),(33,11,1,15),(34,12,3,15),(35,12,2,15),(36,12,1,15),(37,13,3,15),(38,13,2,15),(39,13,1,15),(40,14,3,3),(41,14,2,3),(42,14,1,3),(43,15,3,3),(44,15,2,3),(45,15,1,3),(46,16,3,8),(47,16,2,8),(48,16,1,8),(49,17,3,8),(50,17,2,8),(51,17,1,8),(52,18,3,8),(53,18,2,8),(54,18,1,8),(55,19,3,8),(56,19,2,8),(57,19,1,8),(58,20,3,8),(59,20,2,8),(60,20,1,8),(61,21,3,15),(62,21,2,15),(63,21,1,15),(64,22,3,15),(65,22,2,15),(66,22,1,15),(128,1,4,8),(129,2,4,8),(130,3,4,8),(131,4,4,15),(132,5,4,8),(133,6,4,15),(134,7,4,15),(135,8,4,15),(136,9,4,15),(137,10,4,15),(138,11,4,15),(139,12,4,15),(140,13,4,15),(141,14,4,3),(142,15,4,3),(143,16,4,8),(144,17,4,8),(145,18,4,8),(146,19,4,8),(147,20,4,8),(148,21,4,15),(149,22,4,15),(150,23,4,8),(151,23,3,8),(152,23,2,8),(153,23,1,8),(154,24,4,8),(155,24,3,8),(156,24,2,8),(157,24,1,8),(158,25,4,8),(159,25,3,8),(160,25,2,8),(161,25,1,8),(162,26,4,15),(163,26,3,15),(164,26,2,15),(165,26,1,15),(166,27,4,8),(167,27,3,8),(168,27,2,8),(169,27,1,8),(170,28,4,15),(171,28,3,15),(172,28,2,15),(173,28,1,15),(174,29,4,15),(175,29,3,15),(176,29,2,15),(177,29,1,15),(178,30,4,15),(179,30,3,15),(180,30,2,15),(181,30,1,15),(182,31,4,15),(183,31,3,15),(184,31,2,15),(185,31,1,15),(186,32,4,15),(187,32,3,15),(188,32,2,15),(189,32,1,15),(190,33,4,15),(191,33,3,15),(192,33,2,15),(193,33,1,15),(194,34,4,15),(195,34,3,15),(196,34,2,15),(197,34,1,15),(198,35,4,15),(199,35,3,15),(200,35,2,15),(201,35,1,15),(202,36,4,3),(203,36,3,3),(204,36,2,3),(205,36,1,3),(206,37,4,3),(207,37,3,3),(208,37,2,3),(209,37,1,3),(210,38,4,8),(211,38,3,8),(212,38,2,8),(213,38,1,8),(214,39,4,8),(215,39,3,8),(216,39,2,8),(217,39,1,8),(218,40,4,8),(219,40,3,8),(220,40,2,8),(221,40,1,8),(222,41,4,8),(223,41,3,8),(224,41,2,8),(225,41,1,8),(226,42,4,8),(227,42,3,8),(228,42,2,8),(229,42,1,8),(230,43,4,15),(231,43,3,15),(232,43,2,15),(233,43,1,15),(234,44,4,15),(235,44,3,15),(236,44,2,15),(237,44,1,15);
+INSERT INTO `stockage` VALUES (3,1,1,8),(6,2,1,8),(9,3,1,8),(12,4,1,15),(15,5,1,8),(18,6,1,15),(21,7,1,15),(24,8,1,15),(27,9,1,15),(30,10,1,15),(33,11,1,15),(36,12,1,15),(39,13,1,15),(42,14,1,3),(45,15,1,3),(48,16,1,8),(51,17,1,8),(54,18,1,8),(57,19,1,8),(60,20,1,8),(63,21,1,15),(66,22,1,15);
 /*!40000 ALTER TABLE `stockage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1480,8 +1482,8 @@ CREATE TABLE `type_garantie` (
   `id_type_garantie` bigint NOT NULL AUTO_INCREMENT,
   `code` varchar(50) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `duree_mois` int NOT NULL COMMENT 'Durée en mois',
-  `prix_extension` decimal(10,2) DEFAULT NULL COMMENT 'Prix pour extension',
+  `duree_mois` int NOT NULL,
+  `prix_extension` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id_type_garantie`),
   UNIQUE KEY `code` (`code`),
   CONSTRAINT `chk_duree_positive` CHECK ((`duree_mois` > 0))
@@ -1948,11 +1950,11 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_attribuer_points`(IN p_id_facture BIGINT)
 BEGIN
@@ -1974,51 +1976,39 @@ BEGIN
     DECLARE v_ratio             DECIMAL(4,2);
     DECLARE v_points_ligne      INT;
     DECLARE v_done              BOOLEAN DEFAULT FALSE;
-
     DECLARE cur_lignes CURSOR FOR
         SELECT lf.prix_unitaire, lf.quantite, c.id_type_categorie
         FROM ligne_facture lf
         JOIN produit   p ON p.id_produit   = lf.id_produit
         JOIN categorie c ON c.id_categorie = p.id_categorie
         WHERE lf.id_facture = p_id_facture;
-
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK; RESIGNAL; END;
-
     START TRANSACTION;
-
     SELECT f.id_client, f.montant_final INTO v_id_client, v_montant_final
     FROM facture f WHERE f.id_facture = p_id_facture;
-
-    -- Facture anonyme : pas de points à attribuer
     IF v_id_client IS NULL THEN
         ROLLBACK;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Impossible d attribuer des points a une facture anonyme';
     END IF;
-
     SELECT tf.code, tf.seuil_upgrade_euro, c.id_type_fidelite
     INTO v_code_niveau, v_seuil_upgrade, v_id_type_fidelite
     FROM client c JOIN type_fidelite tf ON tf.id_type_fidelite = c.id_type_fidelite
     WHERE c.id_client = v_id_client;
-
     IF NOT EXISTS (SELECT 1 FROM points_fidelite WHERE id_client = v_id_client) THEN
         INSERT INTO points_fidelite (id_client, solde_points, total_achats_annuel, date_debut_periode)
         VALUES (v_id_client, 0, 0, CURDATE());
     END IF;
-
     SELECT solde_points, total_achats_annuel, date_debut_periode
     INTO v_solde_actuel, v_total_annuel, v_date_debut
     FROM points_fidelite WHERE id_client = v_id_client;
-
     IF DATEDIFF(CURDATE(), v_date_debut) >= 365 THEN
         SET v_total_annuel = 0;
         UPDATE points_fidelite
         SET total_achats_annuel = 0, date_debut_periode = CURDATE()
         WHERE id_client = v_id_client;
     END IF;
-
-    -- Calcul ligne par ligne avec ratio catégorie × niveau fidélité
     OPEN cur_lignes;
     lignes_loop: LOOP
         FETCH cur_lignes INTO v_prix_ligne, v_qte_ligne, v_id_type_categorie;
@@ -2032,27 +2022,20 @@ BEGIN
         SET v_points_total = v_points_total + v_points_ligne;
     END LOOP;
     CLOSE cur_lignes;
-
     SET v_nouveau_solde = v_solde_actuel + v_points_total;
     SET v_nouveau_total = v_total_annuel + v_montant_final;
-
     UPDATE points_fidelite
     SET solde_points = v_nouveau_solde, total_achats_annuel = v_nouveau_total
     WHERE id_client = v_id_client;
-
     INSERT INTO historique_points (id_client, id_facture, type_operation, points, commentaire)
     VALUES (v_id_client, p_id_facture, 'GAIN', v_points_total,
             CONCAT('Achat facture #', p_id_facture, ' - ratio variable par categorie'));
-
-    -- Upgrade NORMAL → PREMIUM si seuil annuel atteint
     IF v_code_niveau = 'NORMAL' AND v_seuil_upgrade IS NOT NULL AND v_nouveau_total >= v_seuil_upgrade THEN
         SELECT id_type_fidelite INTO v_id_premium FROM type_fidelite WHERE code = 'PREMIUM' LIMIT 1;
         UPDATE client SET id_type_fidelite = v_id_premium WHERE id_client = v_id_client;
         INSERT INTO historique_points (id_client, id_facture, type_operation, points, commentaire)
         VALUES (v_id_client, p_id_facture, 'UPGRADE', 0, 'Passage automatique au niveau PREMIUM');
     END IF;
-
-    -- Génération automatique des bons d'achat
     IF v_nouveau_solde >= 8000 THEN
         UPDATE points_fidelite SET solde_points = solde_points - 8000 WHERE id_client = v_id_client;
         INSERT INTO bon_achat (id_client, code_bon, valeur, points_utilises)
@@ -2066,7 +2049,6 @@ BEGIN
         INSERT INTO historique_points (id_client, id_facture, type_operation, points, commentaire)
         VALUES (v_id_client, p_id_facture, 'UTILISATION', -2000, 'Generation bon achat 10 euros');
     END IF;
-
     COMMIT;
 END ;;
 DELIMITER ;
@@ -2078,28 +2060,22 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_creer_facture`(
-    IN p_id_client       BIGINT,
-    IN p_id_magasin      BIGINT,
-    IN p_id_employe      BIGINT,
-    IN p_id_mode_paiement BIGINT,
-    IN p_id_produit      BIGINT,
-    IN p_id_prix         BIGINT,
-    IN p_quantite        INT,
-    IN p_prix            DECIMAL(10,2)
-)
+    IN p_id_client       BIGINT, IN p_id_magasin      BIGINT,
+    IN p_id_employe      BIGINT, IN p_id_mode_paiement BIGINT,
+    IN p_id_produit      BIGINT, IN p_id_prix         BIGINT,
+    IN p_quantite        INT,    IN p_prix            DECIMAL(10,2))
 BEGIN
     DECLARE v_id_facture BIGINT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK; RESIGNAL; END;
     START TRANSACTION;
-    INSERT INTO facture (id_client, id_magasin, id_employe, id_mode_paiement,
-                         montant_total, montant_remise, montant_final)
+    INSERT INTO facture (id_client, id_magasin, id_employe, id_mode_paiement, montant_total, montant_remise, montant_final)
     VALUES (p_id_client, p_id_magasin, p_id_employe, p_id_mode_paiement, 0, 0, 0);
     SET v_id_facture = LAST_INSERT_ID();
     INSERT INTO ligne_facture (id_facture, id_produit, id_prix, quantite, prix_unitaire)
@@ -2115,18 +2091,15 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_enregistrer_garantie`(
-    IN p_id_produit    BIGINT,
-    IN p_id_facture    BIGINT,
-    IN p_numero_serie  VARCHAR(100),
-    IN p_duree_mois    INT
-)
+    IN p_id_produit BIGINT, IN p_id_facture BIGINT,
+    IN p_numero_serie VARCHAR(100), IN p_duree_mois INT)
 BEGIN
     DECLARE v_date_debut DATE DEFAULT CURDATE();
     DECLARE v_date_fin   DATE;
@@ -2143,21 +2116,18 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_etendre_garantie`(
-    IN p_id_garantie      BIGINT,
-    IN p_id_type_garantie BIGINT
-)
+    IN p_id_garantie BIGINT, IN p_id_type_garantie BIGINT)
 BEGIN
-    DECLARE v_duree_mois      INT;
+    DECLARE v_duree_mois       INT;
     DECLARE v_date_fin_etendue DATE;
-    SELECT duree_mois INTO v_duree_mois
-    FROM type_garantie WHERE id_type_garantie = p_id_type_garantie;
+    SELECT duree_mois INTO v_duree_mois FROM type_garantie WHERE id_type_garantie = p_id_type_garantie;
     SELECT DATE_ADD(date_fin, INTERVAL v_duree_mois MONTH) INTO v_date_fin_etendue
     FROM garantie WHERE id_garantie = p_id_garantie;
     INSERT INTO extension_garantie (id_garantie, id_type_garantie, date_fin_etendue)
@@ -2172,21 +2142,18 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_souscrire_ultimate`(
-    IN p_id_client      BIGINT,
-    IN p_montant_paye   DECIMAL(10,2),
-    IN p_renouvellement BOOLEAN
-)
+    IN p_id_client BIGINT, IN p_montant_paye DECIMAL(10,2), IN p_renouvellement BOOLEAN)
 BEGIN
-    DECLARE v_id_ultimate    BIGINT;
+    DECLARE v_id_ultimate     BIGINT;
     DECLARE v_id_statut_actif BIGINT;
-    DECLARE v_niveau_actuel  VARCHAR(50);
+    DECLARE v_niveau_actuel   VARCHAR(50);
     DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK; RESIGNAL; END;
     START TRANSACTION;
     SELECT tf.code INTO v_niveau_actuel
@@ -2205,10 +2172,8 @@ BEGIN
     SELECT id_type_fidelite     INTO v_id_ultimate     FROM type_fidelite     WHERE code = 'ULTIMATE' LIMIT 1;
     SELECT id_statut_abonnement INTO v_id_statut_actif FROM statut_abonnement WHERE code = 'ACTIF'    LIMIT 1;
     UPDATE client SET id_type_fidelite = v_id_ultimate WHERE id_client = p_id_client;
-    INSERT INTO abonnement_client (id_client, id_statut_abonnement, date_debut, date_fin,
-                                   montant_paye, renouvellement_auto)
-    VALUES (p_id_client, v_id_statut_actif, CURDATE(),
-            DATE_ADD(CURDATE(), INTERVAL 1 YEAR), p_montant_paye, p_renouvellement);
+    INSERT INTO abonnement_client (id_client, id_statut_abonnement, date_debut, date_fin, montant_paye, renouvellement_auto)
+    VALUES (p_id_client, v_id_statut_actif, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 YEAR), p_montant_paye, p_renouvellement);
     INSERT INTO historique_points (id_client, id_facture, type_operation, points, commentaire)
     VALUES (p_id_client, NULL, 'UPGRADE', 0, 'Souscription abonnement ULTIMATE annuel');
     COMMIT;
@@ -2222,17 +2187,14 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_verifier_acces_produit`(
-    IN  p_id_client  BIGINT,
-    IN  p_id_produit BIGINT,
-    OUT p_acces      TINYINT
-)
+    IN p_id_client BIGINT, IN p_id_produit BIGINT, OUT p_acces TINYINT)
 BEGIN
     DECLARE v_niveau_client  VARCHAR(20);
     DECLARE v_niveau_produit VARCHAR(20);
@@ -2249,11 +2211,9 @@ BEGIN
     END IF;
     SET p_acces = CASE
         WHEN v_niveau_produit = 'NORMAL'   THEN 1
-        WHEN v_niveau_produit = 'PREMIUM'
-             AND v_niveau_client IN ('PREMIUM','ULTIMATE')
+        WHEN v_niveau_produit = 'PREMIUM'  AND v_niveau_client IN ('PREMIUM','ULTIMATE')
              AND (v_niveau_client != 'ULTIMATE' OR v_abo_actif > 0) THEN 1
-        WHEN v_niveau_produit = 'ULTIMATE'
-             AND v_niveau_client = 'ULTIMATE' AND v_abo_actif > 0   THEN 1
+        WHEN v_niveau_produit = 'ULTIMATE' AND v_niveau_client = 'ULTIMATE' AND v_abo_actif > 0 THEN 1
         ELSE 0
     END;
 END ;;
@@ -2266,31 +2226,23 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_verifier_garantie`(
-    IN  p_numero_serie VARCHAR(100),
-    IN  p_id_produit   BIGINT,
-    OUT p_valide       BOOLEAN,
-    OUT p_message      VARCHAR(255)
-)
+    IN p_numero_serie VARCHAR(100), IN p_id_produit BIGINT,
+    OUT p_valide BOOLEAN, OUT p_message VARCHAR(255))
 BEGIN
     DECLARE v_count INT;
-    SELECT COUNT(*) INTO v_count
-    FROM garantie g
-    WHERE g.numero_serie = p_numero_serie
-      AND g.id_produit   = p_id_produit
-      AND g.date_fin     >= CURDATE();
+    SELECT COUNT(*) INTO v_count FROM garantie g
+    WHERE g.numero_serie = p_numero_serie AND g.id_produit = p_id_produit AND g.date_fin >= CURDATE();
     IF v_count > 0 THEN
-        SET p_valide  = TRUE;
-        SET p_message = 'Numero de serie valide. Garantie active.';
+        SET p_valide = TRUE;  SET p_message = 'Numero de serie valide. Garantie active.';
     ELSE
-        SET p_valide  = FALSE;
-        SET p_message = 'Numero de serie invalide ou garantie expiree.';
+        SET p_valide = FALSE; SET p_message = 'Numero de serie invalide ou garantie expiree.';
     END IF;
 END ;;
 DELIMITER ;
@@ -2307,9 +2259,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_abonnements_actifs` AS select `a`.`id_abonnement` AS `id_abonnement`,`c`.`pseudo` AS `pseudo`,`c`.`email` AS `email`,`a`.`date_debut` AS `date_debut`,`a`.`date_fin` AS `date_fin`,`a`.`montant_paye` AS `montant_paye`,`a`.`renouvellement_auto` AS `renouvellement_auto`,(to_days(`a`.`date_fin`) - to_days(curdate())) AS `jours_restants` from ((`abonnement_client` `a` join `client` `c` on((`c`.`id_client` = `a`.`id_client`))) join `statut_abonnement` `sa` on((`sa`.`id_statut_abonnement` = `a`.`id_statut_abonnement`))) where ((`sa`.`code` = 'ACTIF') and (`a`.`date_fin` >= curdate())) */;
@@ -2325,9 +2277,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_avis_produit` AS select `a`.`id_avis` AS `id_avis`,`a`.`note` AS `note`,`a`.`commentaire` AS `commentaire`,`a`.`date_creation` AS `date_creation`,`c`.`pseudo` AS `auteur`,`p`.`nom` AS `produit`,`p`.`id_produit` AS `id_produit` from ((`avis_produit` `a` join `client` `c` on((`c`.`id_client` = `a`.`id_client`))) join `produit` `p` on((`p`.`id_produit` = `a`.`id_produit`))) where ((`c`.`deleted` = false) and (`p`.`deleted` = false)) order by `a`.`date_creation` desc */;
@@ -2343,9 +2295,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_bons_disponibles` AS select `b`.`id_bon_achat` AS `id_bon_achat`,`c`.`pseudo` AS `pseudo`,`b`.`code_bon` AS `code_bon`,`b`.`valeur` AS `valeur`,`b`.`points_utilises` AS `points_utilises`,`b`.`date_creation` AS `date_creation` from (`bon_achat` `b` join `client` `c` on((`c`.`id_client` = `b`.`id_client`))) where (`b`.`utilise` = false) */;
@@ -2361,9 +2313,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_client_actif` AS select `client`.`id_client` AS `id_client`,`client`.`pseudo` AS `pseudo`,`client`.`nom` AS `nom`,`client`.`prenom` AS `prenom`,`client`.`date_naissance` AS `date_naissance`,`client`.`email` AS `email`,`client`.`telephone` AS `telephone`,`client`.`mot_de_passe` AS `mot_de_passe`,`client`.`numero_carte_fidelite` AS `numero_carte_fidelite`,`client`.`id_type_fidelite` AS `id_type_fidelite`,`client`.`deleted` AS `deleted`,`client`.`rgpd_consent` AS `rgpd_consent`,`client`.`rgpd_consent_date` AS `rgpd_consent_date`,`client`.`rgpd_consent_ip` AS `rgpd_consent_ip`,`client`.`demande_suppression` AS `demande_suppression`,`client`.`date_suppression` AS `date_suppression`,`client`.`date_creation` AS `date_creation`,`client`.`date_modification` AS `date_modification` from `client` where (`client`.`deleted` = false) */;
@@ -2379,9 +2331,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_clients_a_supprimer` AS select `client`.`id_client` AS `id_client`,`client`.`pseudo` AS `pseudo`,`client`.`email` AS `email`,`client`.`date_suppression` AS `date_suppression` from `client` where ((`client`.`demande_suppression` = true) and (`client`.`deleted` = false)) order by `client`.`date_suppression` */;
@@ -2397,9 +2349,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_clients_sans_consentement` AS select `client`.`id_client` AS `id_client`,`client`.`pseudo` AS `pseudo`,`client`.`email` AS `email`,`client`.`date_creation` AS `date_creation` from `client` where ((`client`.`rgpd_consent` = false) and (`client`.`deleted` = false)) */;
@@ -2415,9 +2367,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_employe_actif` AS select `employe`.`id_employe` AS `id_employe`,`employe`.`nom` AS `nom`,`employe`.`prenom` AS `prenom`,`employe`.`email` AS `email`,`employe`.`mot_de_passe` AS `mot_de_passe`,`employe`.`id_role` AS `id_role`,`employe`.`id_magasin` AS `id_magasin`,`employe`.`date_embauche` AS `date_embauche`,`employe`.`deleted` AS `deleted`,`employe`.`date_creation` AS `date_creation`,`employe`.`date_modification` AS `date_modification` from `employe` where (`employe`.`deleted` = false) */;
@@ -2433,9 +2385,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_extensions_garantie` AS select `e`.`id_extension` AS `id_extension`,`e`.`date_achat` AS `date_achat`,`e`.`date_fin_etendue` AS `date_fin_etendue`,`g`.`numero_serie` AS `numero_serie`,`p`.`nom` AS `produit`,`t`.`code` AS `type_extension`,`t`.`prix_extension` AS `prix_extension`,coalesce(`c`.`pseudo`,`f`.`nom_client`) AS `client`,coalesce(`c`.`email`,`f`.`email_client`) AS `client_email`,`f`.`contexte_vente` AS `contexte_vente` from (((((`extension_garantie` `e` join `garantie` `g` on((`g`.`id_garantie` = `e`.`id_garantie`))) join `produit` `p` on((`p`.`id_produit` = `g`.`id_produit`))) join `type_garantie` `t` on((`t`.`id_type_garantie` = `e`.`id_type_garantie`))) join `facture` `f` on((`f`.`id_facture` = `g`.`id_facture`))) left join `client` `c` on((`c`.`id_client` = `f`.`id_client`))) order by `e`.`date_achat` desc */;
@@ -2451,9 +2403,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_facture_detail` AS select `f`.`id_facture` AS `id_facture`,`f`.`date_facture` AS `date_facture`,`f`.`montant_total` AS `montant_total`,`f`.`montant_remise` AS `montant_remise`,`f`.`montant_final` AS `montant_final`,`f`.`contexte_vente` AS `contexte_vente`,`c`.`pseudo` AS `client_pseudo`,`c`.`email` AS `client_email`,coalesce(`c`.`pseudo`,`f`.`nom_client`) AS `nom_client_affiche`,coalesce(`c`.`email`,`f`.`email_client`) AS `email_client_affiche`,coalesce(`c`.`telephone`,`f`.`telephone_client`) AS `telephone_client_affiche`,`m`.`nom` AS `magasin`,`mp`.`code` AS `mode_paiement`,concat(`e`.`prenom`,' ',`e`.`nom`) AS `vendeur`,`e`.`id_employe` AS `id_employe` from ((((`facture` `f` left join `client` `c` on((`c`.`id_client` = `f`.`id_client`))) join `magasin` `m` on((`m`.`id_magasin` = `f`.`id_magasin`))) join `mode_paiement` `mp` on((`mp`.`id_mode_paiement` = `f`.`id_mode_paiement`))) left join `employe` `e` on((`e`.`id_employe` = `f`.`id_employe`))) */;
@@ -2469,9 +2421,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_garanties_actives` AS select `g`.`id_garantie` AS `id_garantie`,`g`.`numero_serie` AS `numero_serie`,`g`.`date_debut` AS `date_debut`,`g`.`date_fin` AS `date_fin`,`g`.`est_etendue` AS `est_etendue`,`p`.`nom` AS `produit`,`p`.`id_produit` AS `id_produit`,coalesce(`c`.`pseudo`,`f`.`nom_client`) AS `client`,coalesce(`c`.`email`,`f`.`email_client`) AS `client_email`,`f`.`id_facture` AS `id_facture`,`f`.`date_facture` AS `date_achat`,`f`.`contexte_vente` AS `contexte_vente` from (((`garantie` `g` join `produit` `p` on((`p`.`id_produit` = `g`.`id_produit`))) join `facture` `f` on((`f`.`id_facture` = `g`.`id_facture`))) left join `client` `c` on((`c`.`id_client` = `f`.`id_client`))) where (`g`.`date_fin` >= curdate()) order by `g`.`date_fin` desc */;
@@ -2487,9 +2439,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_garanties_expirees` AS select `g`.`id_garantie` AS `id_garantie`,`g`.`numero_serie` AS `numero_serie`,`g`.`date_debut` AS `date_debut`,`g`.`date_fin` AS `date_fin`,`p`.`nom` AS `produit`,`p`.`id_produit` AS `id_produit`,`f`.`id_facture` AS `id_facture`,`f`.`date_facture` AS `date_achat`,`f`.`contexte_vente` AS `contexte_vente` from ((`garantie` `g` join `produit` `p` on((`p`.`id_produit` = `g`.`id_produit`))) join `facture` `f` on((`f`.`id_facture` = `g`.`id_facture`))) where (`g`.`date_fin` < curdate()) order by `g`.`date_fin` desc */;
@@ -2505,9 +2457,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_note_moyenne_produit` AS select `p`.`id_produit` AS `id_produit`,`p`.`nom` AS `produit`,count(`a`.`id_avis`) AS `nb_avis`,round(avg(`a`.`note`),1) AS `note_moyenne`,sum((`a`.`note` = 5)) AS `nb_5_etoiles`,sum((`a`.`note` = 4)) AS `nb_4_etoiles`,sum((`a`.`note` = 3)) AS `nb_3_etoiles`,sum((`a`.`note` = 2)) AS `nb_2_etoiles`,sum((`a`.`note` = 1)) AS `nb_1_etoile` from (`produit` `p` left join `avis_produit` `a` on((`a`.`id_produit` = `p`.`id_produit`))) where (`p`.`deleted` = false) group by `p`.`id_produit`,`p`.`nom` */;
@@ -2523,9 +2475,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_points_client` AS select `c`.`id_client` AS `id_client`,`c`.`pseudo` AS `pseudo`,`c`.`nom` AS `nom`,`c`.`prenom` AS `prenom`,`tf`.`code` AS `niveau_fidelite`,`pf`.`solde_points` AS `solde_points`,`pf`.`total_achats_annuel` AS `total_achats_annuel`,`pf`.`date_debut_periode` AS `date_debut_periode` from ((`client` `c` join `type_fidelite` `tf` on((`tf`.`id_type_fidelite` = `c`.`id_type_fidelite`))) left join `points_fidelite` `pf` on((`pf`.`id_client` = `c`.`id_client`))) where (`c`.`deleted` = false) */;
@@ -2541,9 +2493,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_produit_actif` AS select `produit`.`id_produit` AS `id_produit`,`produit`.`nom` AS `nom`,`produit`.`description` AS `description`,`produit`.`id_categorie` AS `id_categorie`,`produit`.`date_sortie` AS `date_sortie`,`produit`.`editeur` AS `editeur`,`produit`.`constructeur` AS `constructeur`,`produit`.`pegi` AS `pegi`,`produit`.`plateforme` AS `plateforme`,`produit`.`actif` AS `actif`,`produit`.`deleted` AS `deleted`,`produit`.`niveau_acces_min` AS `niveau_acces_min`,`produit`.`langue` AS `langue`,`produit`.`necessite_numero_serie` AS `necessite_numero_serie`,`produit`.`date_creation` AS `date_creation`,`produit`.`date_modification` AS `date_modification` from `produit` where ((`produit`.`deleted` = false) and (`produit`.`actif` = true)) */;
@@ -2559,9 +2511,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_produit_avec_acces` AS select `p`.`id_produit` AS `id_produit`,`p`.`nom` AS `nom`,`p`.`description` AS `description`,`p`.`plateforme` AS `plateforme`,`p`.`pegi` AS `pegi`,`p`.`actif` AS `actif`,`p`.`niveau_acces_min` AS `niveau_acces_min`,`p`.`langue` AS `langue_produit`,`p`.`necessite_numero_serie` AS `necessite_numero_serie`,`c`.`nom` AS `categorie`,`tc`.`code` AS `type_categorie`,`pp`.`prix` AS `prix_neuf`,`img`.`url` AS `image_principale_url`,`img`.`alt` AS `image_principale_alt`,`img`.`decorative` AS `image_decorative` from (((((`produit` `p` join `categorie` `c` on((`c`.`id_categorie` = `p`.`id_categorie`))) join `type_categorie` `tc` on((`tc`.`id_type_categorie` = `c`.`id_type_categorie`))) left join `produit_prix` `pp` on((`pp`.`id_produit` = `p`.`id_produit`))) left join `statut_produit` `sp` on(((`sp`.`id_statut_produit` = `pp`.`id_statut_produit`) and (`sp`.`code` = 'NEUF')))) left join `produit_image` `img` on(((`img`.`id_produit` = `p`.`id_produit`) and (`img`.`principale` = true)))) where ((`p`.`deleted` = false) and (`p`.`actif` = true)) */;
@@ -2577,9 +2529,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_produit_media` AS select `p`.`id_produit` AS `id_produit`,`p`.`nom` AS `produit`,'IMAGE' AS `type_media`,`i`.`id_image` AS `id_media`,`i`.`url` AS `url`,`i`.`alt` AS `description_accessible`,`i`.`decorative` AS `decorative`,NULL AS `langue`,NULL AS `sous_titres_url`,NULL AS `audio_desc_url`,NULL AS `transcription`,`i`.`ordre` AS `ordre`,`i`.`principale` AS `principale` from (`produit` `p` join `produit_image` `i` on((`i`.`id_produit` = `p`.`id_produit`))) where (`p`.`deleted` = false) union all select `p`.`id_produit` AS `id_produit`,`p`.`nom` AS `produit`,'VIDEO' AS `type_media`,`v`.`id_video` AS `id_media`,`v`.`url` AS `url`,`v`.`titre` AS `description_accessible`,false AS `decorative`,`v`.`langue` AS `langue`,`v`.`sous_titres_url` AS `sous_titres_url`,`v`.`audio_desc_url` AS `audio_desc_url`,`v`.`transcription` AS `transcription`,`v`.`ordre` AS `ordre`,false AS `principale` from (`produit` `p` join `produit_video` `v` on((`v`.`id_produit` = `p`.`id_produit`))) where (`p`.`deleted` = false) order by `id_produit`,`type_media`,`ordre` */;
@@ -2595,9 +2547,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_ratios_points` AS select `tc`.`code` AS `type_categorie`,`tf`.`code` AS `niveau_fidelite`,`rp`.`ratio` AS `pts_par_euro` from ((`ratio_points` `rp` join `type_categorie` `tc` on((`tc`.`id_type_categorie` = `rp`.`id_type_categorie`))) join `type_fidelite` `tf` on((`tf`.`id_type_fidelite` = `rp`.`id_type_fidelite`))) order by `tc`.`code`,`tf`.`code` */;
@@ -2613,9 +2565,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_rgaa_audit_media` AS select `p`.`id_produit` AS `id_produit`,`p`.`nom` AS `produit`,count(distinct `i`.`id_image`) AS `nb_images`,sum((case when ((`i`.`decorative` = false) and ((`i`.`alt` is null) or (`i`.`alt` = ''))) then 1 else 0 end)) AS `images_sans_alt`,count(distinct `v`.`id_video`) AS `nb_videos`,sum((case when (`v`.`sous_titres_url` is null) then 1 else 0 end)) AS `videos_sans_sous_titres`,sum((case when (`v`.`transcription` is null) then 1 else 0 end)) AS `videos_sans_transcription`,sum((case when (`v`.`audio_desc_url` is null) then 1 else 0 end)) AS `videos_sans_audio_desc` from ((`produit` `p` left join `produit_image` `i` on((`i`.`id_produit` = `p`.`id_produit`))) left join `produit_video` `v` on((`v`.`id_produit` = `p`.`id_produit`))) where (`p`.`deleted` = false) group by `p`.`id_produit`,`p`.`nom` having ((`images_sans_alt` > 0) or (`videos_sans_sous_titres` > 0) or (`videos_sans_transcription` > 0) or (`videos_sans_audio_desc` > 0)) */;
@@ -2631,9 +2583,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET character_set_client      = utf8mb3 */;
+/*!50001 SET character_set_results     = utf8mb3 */;
+/*!50001 SET collation_connection      = utf8mb3_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `v_stock_magasin` AS select `s`.`id_stockage` AS `id_stockage`,`m`.`nom` AS `magasin`,`p`.`nom` AS `produit`,`s`.`quantite` AS `quantite` from ((`stockage` `s` join `magasin` `m` on((`m`.`id_magasin` = `s`.`id_magasin`))) join `produit` `p` on((`p`.`id_produit` = `s`.`id_produit`))) */;
@@ -2650,4 +2602,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-05 16:54:27
+-- Dump completed on 2026-03-06  9:08:24

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.monprojet.boutiquejeux.controller.MainController"
+            styleClass="root-dark">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="4" prefWidth="220">
+            <padding><Insets top="20" bottom="20" left="12" right="12"/></padding>
+
+            <!-- Logo + infos employé -->
+            <Label text="🎮 BoutiqueJeux" styleClass="sidebar-logo"/>
+            <Separator styleClass="sep"/>
+            <Label fx:id="labelEmploye" styleClass="sidebar-employe"/>
+            <Label fx:id="labelRole"    styleClass="sidebar-role"/>
+            <Label fx:id="labelMagasin" styleClass="sidebar-magasin"/>
+            <Separator styleClass="sep"/>
+
+            <!-- Navigation -->
+            <Button fx:id="btnDashboard"   text="🏠  Tableau de bord"  onAction="#handleDashboard"   styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnCreerClient" text="👤  Créer un client"   onAction="#handleCreerClient" styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnVente"       text="🛒  Vente"             onAction="#handleVente"       styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnReprise"     text="♻️  Reprise produit"   onAction="#handleReprise"     styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnStock"       text="📦  Stock"             onAction="#handleStock"       styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnGaranties"   text="🛡️  Garanties"        onAction="#handleGaranties"   styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnRecherche"   text="🔍  Recherche"         onAction="#handleRecherche"   styleClass="nav-btn" maxWidth="Infinity"/>
+            <Button fx:id="btnPlanning"    text="📅  Planning"          onAction="#handlePlanning"    styleClass="nav-btn" maxWidth="Infinity"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="🚪  Déconnexion" onAction="#handleLogout" styleClass="btn-danger" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- CONTENU PRINCIPAL -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+</BorderPane>

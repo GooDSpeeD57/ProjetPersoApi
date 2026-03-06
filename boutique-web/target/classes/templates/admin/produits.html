@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: html('Produits Admin', ~{::main})}">
+<main>
+<div class="d-flex" style="min-height:calc(100vh - 56px)">
+    <div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
+    <div class="flex-grow-1 p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="fw-bold mb-0"><i class="bi bi-box-seam me-2 text-purple"></i>Catalogue produits</h4>
+            <a th:href="@{/stocks}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-archive me-1"></i>Gérer les stocks
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Produit</th>
+                                <th>Catégorie</th>
+                                <th>Plateforme</th>
+                                <th>Prix</th>
+                                <th>Note</th>
+                                <th>Statut</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${produits == null or produits.get('content') == null}">
+                                <td colspan="7" class="text-center py-5 text-muted">
+                                    <i class="bi bi-box-seam fs-1 d-block mb-2"></i>Aucun produit
+                                </td>
+                            </tr>
+                            <tr th:each="p : ${produits?.get('content')}">
+                                <td>
+                                    <div class="fw-semibold small" th:text="${p.get('titre')}">–</div>
+                                    <small class="text-muted" th:text="${p.get('editeur')}">–</small>
+                                </td>
+                                <td class="text-muted small" th:text="${p.get('categorie')}">–</td>
+                                <td>
+                                    <span class="badge bg-light text-dark border small" th:text="${p.get('plateforme')}">–</span>
+                                </td>
+                                <td class="fw-semibold" th:text="${p.get('prix')} + ' €'">–</td>
+                                <td>
+                                    <span th:if="${p.get('noteMoyenne') != null}">
+                                        <i class="bi bi-star-fill text-warning small"></i>
+                                        <span class="small" th:text="${p.get('noteMoyenne')}">–</span>
+                                    </span>
+                                    <span class="text-muted small" th:unless="${p.get('noteMoyenne') != null}">–</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success" th:if="${p.get('actif')}">Actif</span>
+                                    <span class="badge bg-secondary" th:unless="${p.get('actif')}">Inactif</span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/catalogue/{id}(id=${p.get('id')})}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="d-flex justify-content-between align-items-center p-3 border-top" th:if="${produits?.get('totalPages') > 1}">
+                    <small class="text-muted">
+                        Page <span th:text="${page + 1}">1</span> sur <span th:text="${produits?.get('totalPages')}">1</span>
+                        – <span th:text="${produits?.get('totalElements')}">0</span> produits
+                    </small>
+                    <div class="d-flex gap-2">
+                        <a th:if="${page > 0}" th:href="@{/admin/produits(page=${page - 1})}" class="btn btn-sm btn-outline-secondary">‹ Préc.</a>
+                        <a th:if="${page + 1 < produits?.get('totalPages')}" th:href="@{/admin/produits(page=${page + 1})}" class="btn btn-sm btn-outline-secondary">Suiv. ›</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</html>

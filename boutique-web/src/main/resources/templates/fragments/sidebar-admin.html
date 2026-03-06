@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="sidebar" class="sidebar p-3 d-flex flex-column" style="min-width:220px">
+    <div class="text-center mb-4">
+        <div class="text-white fw-bold fs-5">🔧 Admin</div>
+        <small class="text-muted" th:text="${session.prenomUtilisateur}">Admin</small>
+    </div>
+    <ul class="nav flex-column gap-1">
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin') and !#request.requestURI.startsWith('/admin/') ? 'active' : ''}" th:href="@{/admin}">
+                <i class="bi bi-speedometer2"></i> Tableau de bord
+            </a>
+        </li>
+        <li><hr class="border-secondary my-1"/></li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin/employes') ? 'active' : ''}" th:href="@{/admin/employes}">
+                <i class="bi bi-people"></i> Employés
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin/planning') ? 'active' : ''}" th:href="@{/admin/planning}">
+                <i class="bi bi-calendar3"></i> Planning
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin/clients') ? 'active' : ''}" th:href="@{/admin/clients}">
+                <i class="bi bi-person-lines-fill"></i> Clients
+            </a>
+        </li>
+        <li><hr class="border-secondary my-1"/></li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin/produits') ? 'active' : ''}" th:href="@{/admin/produits}">
+                <i class="bi bi-box-seam"></i> Produits
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin/promotions') ? 'active' : ''}" th:href="@{/admin/promotions}">
+                <i class="bi bi-tag"></i> Promotions
+            </a>
+        </li>
+        <li><hr class="border-secondary my-1"/></li>
+        <li class="nav-item">
+            <a class="nav-link" th:classappend="${#request.requestURI.startsWith('/admin/audit') ? 'active' : ''}" th:href="@{/admin/audit}">
+                <i class="bi bi-journal-text"></i> Audit
+            </a>
+        </li>
+    </ul>
+    <div class="mt-auto pt-3">
+        <a class="nav-link text-danger" th:href="@{/auth/logout}"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: html('Administration', ~{::main})}">
+<main>
+<div class="d-flex" style="min-height:calc(100vh - 56px)">
+    <div th:replace="~{fragments/sidebar-admin :: sidebar}"></div>
+    <div class="flex-grow-1 p-4">
+
+        <h4 class="fw-bold mb-4"><i class="bi bi-speedometer2 me-2 text-purple"></i>Tableau de bord</h4>
+
+        <!-- Stats cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-sm-6 col-xl-3">
+                <div class="card border-0 h-100">
+                    <div class="card-body p-4 d-flex align-items-center gap-3">
+                        <div style="width:52px;height:52px;background:#7c3aed22;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">👤</div>
+                        <div>
+                            <div class="text-muted small">Clients</div>
+                            <div class="fw-bold fs-4" th:text="${stats?.get('totalClients')} ?: '–'">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card border-0 h-100">
+                    <div class="card-body p-4 d-flex align-items-center gap-3">
+                        <div style="width:52px;height:52px;background:#10b98122;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🔧</div>
+                        <div>
+                            <div class="text-muted small">Employés</div>
+                            <div class="fw-bold fs-4" th:text="${stats?.get('totalEmployes')} ?: '–'">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card border-0 h-100">
+                    <div class="card-body p-4 d-flex align-items-center gap-3">
+                        <div style="width:52px;height:52px;background:#f59e0b22;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">📦</div>
+                        <div>
+                            <div class="text-muted small">Produits</div>
+                            <div class="fw-bold fs-4" th:text="${stats?.get('totalProduits')} ?: '–'">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card border-0 h-100">
+                    <div class="card-body p-4 d-flex align-items-center gap-3">
+                        <div style="width:52px;height:52px;background:#ef444422;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🛡️</div>
+                        <div>
+                            <div class="text-muted small">Garanties</div>
+                            <div class="fw-bold fs-4">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Raccourcis -->
+        <h5 class="fw-semibold mb-3">Accès rapides</h5>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <a th:href="@{/admin/employes}" class="card text-decoration-none h-100 hover-shadow">
+                    <div class="card-body d-flex align-items-center gap-3 p-4">
+                        <i class="bi bi-people fs-3 text-purple"></i>
+                        <div>
+                            <div class="fw-semibold">Gérer les employés</div>
+                            <small class="text-muted">Créer, modifier, désactiver</small>
+                        </div>
+                        <i class="bi bi-chevron-right ms-auto text-muted"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/admin/planning}" class="card text-decoration-none h-100">
+                    <div class="card-body d-flex align-items-center gap-3 p-4">
+                        <i class="bi bi-calendar3 fs-3 text-purple"></i>
+                        <div>
+                            <div class="fw-semibold">Planning</div>
+                            <small class="text-muted">Gérer les créneaux</small>
+                        </div>
+                        <i class="bi bi-chevron-right ms-auto text-muted"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/admin/clients}" class="card text-decoration-none h-100">
+                    <div class="card-body d-flex align-items-center gap-3 p-4">
+                        <i class="bi bi-person-lines-fill fs-3 text-purple"></i>
+                        <div>
+                            <div class="fw-semibold">Clients</div>
+                            <small class="text-muted">Consulter la base clients</small>
+                        </div>
+                        <i class="bi bi-chevron-right ms-auto text-muted"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/admin/promotions}" class="card text-decoration-none h-100">
+                    <div class="card-body d-flex align-items-center gap-3 p-4">
+                        <i class="bi bi-tag fs-3 text-purple"></i>
+                        <div>
+                            <div class="fw-semibold">Promotions</div>
+                            <small class="text-muted">Codes promo et réductions</small>
+                        </div>
+                        <i class="bi bi-chevron-right ms-auto text-muted"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/admin/produits}" class="card text-decoration-none h-100">
+                    <div class="card-body d-flex align-items-center gap-3 p-4">
+                        <i class="bi bi-box-seam fs-3 text-purple"></i>
+                        <div>
+                            <div class="fw-semibold">Produits</div>
+                            <small class="text-muted">Catalogue et stocks</small>
+                        </div>
+                        <i class="bi bi-chevron-right ms-auto text-muted"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/admin/audit}" class="card text-decoration-none h-100">
+                    <div class="card-body d-flex align-items-center gap-3 p-4">
+                        <i class="bi bi-journal-text fs-3 text-purple"></i>
+                        <div>
+                            <div class="fw-semibold">Journal d'audit</div>
+                            <small class="text-muted">Traçabilité des actions</small>
+                        </div>
+                        <i class="bi bi-chevron-right ms-auto text-muted"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</html>

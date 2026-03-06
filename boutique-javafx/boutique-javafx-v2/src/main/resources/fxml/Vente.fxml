@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.monprojet.boutiquejeux.controller.VenteController"
+      spacing="16" styleClass="view-container">
+    <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+
+    <Label text="🛒 Vente produit" styleClass="page-title"/>
+    <Separator/>
+
+    <HBox spacing="16" VBox.vgrow="ALWAYS">
+
+        <!-- COLONNE GAUCHE : Client + Catalogue -->
+        <VBox spacing="14" prefWidth="500" HBox.hgrow="ALWAYS">
+
+            <!-- Recherche client -->
+            <VBox styleClass="card" spacing="10">
+                <Label text="Client" styleClass="section-title"/>
+                <HBox spacing="8">
+                    <TextField fx:id="rechercheClientField" promptText="Email, pseudo ou nom…" styleClass="text-field-dark" HBox.hgrow="ALWAYS"/>
+                    <Button text="🔍" onAction="#handleRechercheClient" styleClass="btn-secondary"/>
+                </HBox>
+                <Label fx:id="labelClient" text="Aucun client sélectionné" styleClass="info-label"/>
+                <Label fx:id="labelPoints" styleClass="field-label"/>
+            </VBox>
+
+            <!-- Catalogue produits -->
+            <VBox styleClass="card" spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Catalogue" styleClass="section-title"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <RadioButton fx:id="radioNeuf"     text="Neuf"     styleClass="radio-dark" selected="true"/>
+                    <RadioButton fx:id="radioOccasion" text="Occasion" styleClass="radio-dark"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="rechercheProduitField" promptText="Chercher un produit…" styleClass="text-field-dark" prefWidth="200"/>
+                    <Button text="🔍" onAction="#handleRechercheProduit" styleClass="btn-secondary"/>
+                </HBox>
+                <TableView fx:id="tableProduits" VBox.vgrow="ALWAYS" styleClass="table-dark">
+                    <columns>
+                        <TableColumn fx:id="colNomProduit" text="Produit"  prefWidth="200"/>
+                        <TableColumn fx:id="colGenre"      text="Genre"    prefWidth="100"/>
+                        <TableColumn fx:id="colPrix"       text="Prix"     prefWidth="80"/>
+                        <TableColumn fx:id="colStock"      text="Stock"    prefWidth="70"/>
+                    </columns>
+                </TableView>
+                <Button text="➕ Ajouter au panier" onAction="#handleAjouterPanier" styleClass="btn-primary" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+
+        <!-- COLONNE DROITE : Panier + Paiement -->
+        <VBox spacing="14" prefWidth="380">
+
+            <!-- Panier -->
+            <VBox styleClass="card" spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="🛒 Panier" styleClass="section-title"/>
+                <TableView fx:id="tablePanier" VBox.vgrow="ALWAYS" styleClass="table-dark">
+                    <columns>
+                        <TableColumn fx:id="colPanierNom"  text="Produit"  prefWidth="140"/>
+                        <TableColumn fx:id="colPanierType" text="Type"     prefWidth="70"/>
+                        <TableColumn fx:id="colPanierQte"  text="Qté"     prefWidth="40"/>
+                        <TableColumn fx:id="colPanierPrix" text="Prix"     prefWidth="80"/>
+                    </columns>
+                </TableView>
+                <Button text="🗑️ Retirer" onAction="#handleRetirerPanier" styleClass="btn-danger" maxWidth="Infinity"/>
+                <Label fx:id="labelTotal" text="Total : 0.00 €" styleClass="total-label"/>
+            </VBox>
+
+            <!-- Paiement -->
+            <VBox styleClass="card" spacing="10">
+                <Label text="💳 Paiement" styleClass="section-title"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Mode :" styleClass="field-label"/>
+                    <ComboBox fx:id="comboPaiement" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+                <CheckBox fx:id="checkPointsFidelite" text="Utiliser les points fidélité (100 pts min)" styleClass="checkbox-dark"/>
+                <Label fx:id="labelPointsUtilises" styleClass="field-label"/>
+
+                <StackPane>
+                    <Button fx:id="btnValiderVente" text="✅ Valider la vente" onAction="#handleValiderVente"
+                            styleClass="btn-success" maxWidth="Infinity"/>
+                    <ProgressIndicator fx:id="spinner" maxWidth="28" maxHeight="28" StackPane.alignment="CENTER_RIGHT">
+                        <StackPane.margin><Insets right="10"/></StackPane.margin>
+                    </ProgressIndicator>
+                </StackPane>
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>

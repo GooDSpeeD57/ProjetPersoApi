@@ -4,10 +4,14 @@ import com.monprojet.boutiquejeux.dto.request.InscriptionRequest;
 import com.monprojet.boutiquejeux.dto.request.LoginRequest;
 import com.monprojet.boutiquejeux.dto.response.AuthResponse;
 import com.monprojet.boutiquejeux.entity.Client;
+import com.monprojet.boutiquejeux.entity.HistoriquePoints;
+import com.monprojet.boutiquejeux.entity.PointsFidelite;
 import com.monprojet.boutiquejeux.entity.TypeFidelite;
 import com.monprojet.boutiquejeux.exception.BusinessException;
 import com.monprojet.boutiquejeux.exception.ResourceNotFoundException;
 import com.monprojet.boutiquejeux.repository.ClientRepository;
+import com.monprojet.boutiquejeux.repository.HistoriquePointsRepository;
+import com.monprojet.boutiquejeux.repository.PointsFideliteRepository;
 import com.monprojet.boutiquejeux.repository.TypeFideliteRepository;
 import com.monprojet.boutiquejeux.security.jwt.JwtService;
 import com.monprojet.boutiquejeux.security.service.ClientUserDetailsService;
@@ -19,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -29,10 +34,15 @@ public class AuthService {
 
     private final ClientRepository          clientRepository;
     private final TypeFideliteRepository    typeFideliteRepository;
+    private final PointsFideliteRepository  pointsFideliteRepository;
+    private final HistoriquePointsRepository historiquePointsRepository;
     private final ClientUserDetailsService  clientUDS;
     private final EmployeUserDetailsService employeUDS;
     private final JwtService                jwtService;
     private final PasswordEncoder           passwordEncoder;
+
+    /** Points de bienvenue offerts à l'inscription */
+    private static final int POINTS_BIENVENUE = 10;
 
     @Transactional(readOnly = true)
     public AuthResponse login(LoginRequest req) {
@@ -56,13 +66,14 @@ public class AuthService {
         if (clientRepository.findByEmailAndDeletedFalse(req.email()).isPresent())
             throw new BusinessException("Email déjà utilisé");
 
-        // Validation métier : age minimum 18 ans
+        // Validation métier : âge minimum 18 ans
         if (req.dateNaissance() != null && req.dateNaissance().isAfter(LocalDate.now().minusYears(18)))
             throw new BusinessException("Vous devez avoir au moins 18 ans pour vous inscrire");
 
         TypeFidelite normal = typeFideliteRepository.findByCode("NORMAL")
                 .orElseThrow(() -> new ResourceNotFoundException("Type fidélité NORMAL introuvable"));
 
+        // 1. Créer le client
         Client client = Client.builder()
                 .pseudo(req.pseudo())
                 .nom(req.nom())
@@ -70,6 +81,7 @@ public class AuthService {
                 .email(req.email())
                 .motDePasse(passwordEncoder.encode(req.motDePasse()))
                 .telephone(req.telephone())
+                .dateNaissance(req.dateNaissance())
                 .typeFidelite(normal)
                 .numeroCarteFidelite(UUID.randomUUID().toString().substring(0, 16).toUpperCase())
                 .rgpdConsent(req.rgpdConsent())
@@ -78,6 +90,29 @@ public class AuthService {
                 .build();
 
         clientRepository.save(client);
+
+        // 2. Initialiser le compte points avec 10 points de bienvenue
+        PointsFidelite points = PointsFidelite.builder()
+                .client(client)
+                .soldePoints(POINTS_BIENVENUE)
+                .totalAchatsAnnuel(BigDecimal.ZERO)
+                .dateDebutPeriode(LocalDate.now())
+                .build();
+
+        pointsFideliteRepository.save(points);
+
+        // 3. Enregistrer dans l'historique
+        HistoriquePoints historique = HistoriquePoints.builder()
+                .client(client)
+                .facture(null)
+                .typeOperation("BIENVENUE")
+                .points(POINTS_BIENVENUE)
+                .commentaire("Points offerts à l'inscription - Bienvenue !")
+                .build();
+
+        historiquePointsRepository.save(historique);
+
+        // 4. Générer le JWT
         UserDetails userDetails = clientUDS.loadUserByUsername(client.getEmail());
         return new AuthResponse(
                 jwtService.generateAccessToken(userDetails, "CLIENT"),

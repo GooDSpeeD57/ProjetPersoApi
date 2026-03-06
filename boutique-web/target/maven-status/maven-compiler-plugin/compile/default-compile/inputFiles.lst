@@ -3,10 +3,16 @@ C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monp
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\config\ApiConfig.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\config\ApiUserDetailsService.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\config\SecurityConfig.java
+C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\AbonnementWebController.java
+C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\AdminController.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\AppControllers.java
+C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\AuthWebController.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\CatalogueController.java
+C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\CatalogueWebController.java
+C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\CompteWebController.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\HomeAuthController.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\PanierController.java
+C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\controller\PlanningWebController.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\dto\CartItem.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\dto\GarantieForm.java
 C:\Users\DEV01\Desktop\boutique-jeux-COMPLET\boutique-web\src\main\java\com\monprojet\boutiquejeux\dto\InscriptionForm.java

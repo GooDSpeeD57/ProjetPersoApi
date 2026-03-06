@@ -1,100 +1,89 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <th:block th:replace="~{fragments/layout :: head('Catalogue')}"/>
-</head>
-<body>
-<th:block th:replace="~{fragments/layout :: navbar}"/>
-
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: html('Catalogue', ~{::main})}">
 <main>
-  <div class="container">
-    <div class="section-label">// STOCK DISPONIBLE</div>
-    <div class="section-title">Catalogue</div>
+<div class="container py-4">
 
-    <!-- FILTRES -->
-    <form id="filter-form" th:action="@{/catalogue}" method="get">
-      <div class="filters-bar">
-        <input class="form-control" type="text" name="search"
-               th:value="${search}" placeholder="Rechercher un jeu, une console..."/>
-        <select class="form-control form-control-select" name="plateforme" onchange="autoSubmitFilter()">
-          <option value="">Toutes plateformes</option>
-          <option value="PS5"             th:selected="${plateforme == 'PS5'}">PS5</option>
-          <option value="Xbox"            th:selected="${plateforme == 'Xbox'}">Xbox</option>
-          <option value="Nintendo Switch" th:selected="${plateforme == 'Nintendo Switch'}">Nintendo Switch</option>
-          <option value="PC"              th:selected="${plateforme == 'PC'}">PC</option>
-        </select>
-        <select class="form-control form-control-select" name="niveauAcces" onchange="autoSubmitFilter()">
-          <option value="">Tous les niveaux</option>
-          <option value="NORMAL"   th:selected="${niveauAcces == 'NORMAL'}">Normal</option>
-          <option value="PREMIUM"  th:selected="${niveauAcces == 'PREMIUM'}">Premium</option>
-          <option value="ULTIMATE" th:selected="${niveauAcces == 'ULTIMATE'}">Ultimate</option>
-        </select>
-        <button type="submit" class="btn btn-primary">🔍 Filtrer</button>
-        <a th:href="@{/catalogue}" class="btn btn-secondary">Réinitialiser</a>
-      </div>
-    </form>
-
-    <!-- GRILLE PRODUITS -->
-    <div class="products-grid" th:if="${produits != null and !produits.content.isEmpty()}">
-      <div class="product-card" th:each="p : ${produits.content}">
-        <div class="product-img">
-          <img th:if="${p.imagePrincipaleUrl != null}"
-               th:src="${p.imagePrincipaleUrl}"
-               th:alt="${p.imagePrincipaleAlt ?: p.nom}"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <span th:if="${p.imagePrincipaleUrl == null}">🎮</span>
-          <!-- Badge niveau -->
-          <span th:if="${p.niveauAccesMin == 'ULTIMATE'}" class="product-badge badge-ultimate">ULTIMATE</span>
-          <span th:if="${p.niveauAccesMin == 'PREMIUM'}"  class="product-badge badge-premium">PREMIUM</span>
-          <span th:if="${p.niveauAccesMin == 'NORMAL' and p.prixNeuf != null}"    class="product-badge badge-neuf">NEUF</span>
-          <span th:if="${p.niveauAccesMin == 'NORMAL' and p.prixNeuf == null}"    class="product-badge badge-occasion">OCCASION</span>
-        </div>
-        <div class="product-body">
-          <div class="product-platform" th:text="${p.plateforme ?: p.typeCategorie}"></div>
-          <div class="product-name" th:text="${p.nom}"></div>
-          <div class="product-price">
-            <span th:text="${p.prixNeuf != null ? #numbers.formatDecimal(p.prixNeuf,1,2) + ' €' : (p.prixOccasion != null ? #numbers.formatDecimal(p.prixOccasion,1,2) + ' €' : 'N/A')}"></span>
-            <span th:if="${p.prixNeuf != null and p.prixOccasion != null}"
-                  class="product-price-old"
-                  th:text="${#numbers.formatDecimal(p.prixOccasion,1,2) + ' €'}"></span>
-          </div>
-          <div class="product-actions">
-            <form th:action="@{/panier/ajouter}" method="post" style="margin:0">
-              <input type="hidden" name="produitId" th:value="${p.id}"/>
-              <input type="hidden" name="produitNom" th:value="${p.nom}"/>
-              <input type="hidden" name="prix" th:value="${p.prixNeuf ?: p.prixOccasion}"/>
-              <button type="submit" class="btn btn-sm btn-primary">+ Panier</button>
-              <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <!-- Filtres de recherche -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form th:action="@{/catalogue}" method="get" class="row g-3 align-items-end">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Rechercher</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" name="search" class="form-control" placeholder="Titre, éditeur…" th:value="${search}"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Plateforme</label>
+                    <select name="plateforme" class="form-select">
+                        <option value="">Toutes</option>
+                        <option th:each="p : ${ {'PS5','Xbox Series X','Nintendo Switch','PC','PS4','Xbox One'} }"
+                                th:value="${p}" th:text="${p}"
+                                th:selected="${p == plateforme}">–</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-purple w-100">Filtrer</button>
+                </div>
             </form>
-            <a class="btn btn-sm btn-secondary" th:href="@{/catalogue/{id}(id=${p.id})}">Détail</a>
-          </div>
         </div>
-      </div>
     </div>
 
-    <!-- VIDE -->
-    <div th:if="${produits == null or produits.content.isEmpty()}"
-         style="text-align:center;padding:4rem;color:var(--text-dim)">
-      <div style="font-family:var(--font-head);letter-spacing:3px">Aucun produit trouvé</div>
+    <!-- Résultats -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0">
+            <span th:if="${search != null and !search.isEmpty()}">Résultats pour "<span th:text="${search}"></span>"</span>
+            <span th:unless="${search != null and !search.isEmpty()}">Tout le catalogue</span>
+        </h5>
+        <small class="text-muted" th:text="${produits?.get('totalElements')} + ' produit(s)'">–</small>
     </div>
 
-    <!-- PAGINATION -->
-    <div class="pagination" th:if="${produits != null and produits.totalPages > 1}">
-      <a class="page-link" th:classappend="${produits.first} ? 'disabled'"
-         th:href="@{/catalogue(page=${produits.number - 1}, search=${search}, plateforme=${plateforme})}">◀</a>
-      <th:block th:each="i : ${#numbers.sequence(0, produits.totalPages - 1)}">
-        <a class="page-link" th:classappend="${i == produits.number} ? 'active'"
-           th:href="@{/catalogue(page=${i}, search=${search}, plateforme=${plateforme})}"
-           th:text="${i + 1}"></a>
-      </th:block>
-      <a class="page-link" th:classappend="${produits.last} ? 'disabled'"
-         th:href="@{/catalogue(page=${produits.number + 1}, search=${search}, plateforme=${plateforme})}">▶</a>
+    <!-- Grille produits -->
+    <div class="row g-3" th:if="${produits?.get('content') != null and !produits.get('content').isEmpty()}">
+        <div class="col-sm-6 col-lg-4 col-xl-3" th:each="p : ${produits.get('content')}">
+            <a th:href="@{/catalogue/{id}(id=${p.get('id')})}" class="text-decoration-none">
+                <div class="card h-100 position-relative hover-shadow" style="transition:.2s">
+                    <div class="bg-light text-center py-4" style="min-height:140px;display:flex;align-items:center;justify-content:center">
+                        <img th:if="${p.get('imageUrl') != null}" th:src="${p.get('imageUrl')}"
+                             class="img-fluid" style="max-height:120px;object-fit:contain" alt=""/>
+                        <i class="bi bi-controller fs-1 text-muted" th:unless="${p.get('imageUrl') != null}"></i>
+                    </div>
+                    <div class="card-body py-2 px-3">
+                        <div class="text-muted small" th:text="${p.get('plateforme')}">–</div>
+                        <div class="fw-semibold text-dark small lh-sm" th:text="${p.get('titre')}">–</div>
+                        <div class="text-muted" style="font-size:.75rem" th:text="${p.get('editeur')}">–</div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center py-2 px-3">
+                        <span class="fw-bold text-dark" th:text="${p.get('prix')} + ' €'">–</span>
+                        <span th:if="${p.get('noteMoyenne') != null}" class="text-muted small">
+                            <i class="bi bi-star-fill text-warning"></i> <span th:text="${p.get('noteMoyenne')}">–</span>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 
-  </div>
+    <!-- Vide -->
+    <div th:if="${produits?.get('content') == null or produits.get('content').isEmpty()}"
+         class="text-center py-5 text-muted">
+        <i class="bi bi-search fs-1 d-block mb-2"></i>
+        Aucun produit trouvé
+        <div class="mt-2"><a th:href="@{/catalogue}" class="btn btn-outline-secondary btn-sm">Réinitialiser</a></div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4 gap-2" th:if="${produits?.get('totalPages') > 1}">
+        <a th:if="${page > 0}"
+           th:href="@{/catalogue(page=${page-1},search=${search},plateforme=${plateforme})}"
+           class="btn btn-outline-secondary">‹ Préc.</a>
+        <span class="btn btn-purple disabled" th:text="'Page ' + ${page+1} + ' / ' + ${produits.get('totalPages')}">–</span>
+        <a th:if="${page + 1 < produits?.get('totalPages')}"
+           th:href="@{/catalogue(page=${page+1},search=${search},plateforme=${plateforme})}"
+           class="btn btn-outline-secondary">Suiv. ›</a>
+    </div>
+</div>
 </main>
-
-<th:block th:replace="~{fragments/layout :: footer}"/>
-<th:block th:replace="~{fragments/layout :: scripts}"/>
-</body>
 </html>

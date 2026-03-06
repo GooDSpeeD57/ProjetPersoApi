@@ -1,81 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <th:block th:replace="~{fragments/layout :: head(${produit?.nom ?: 'Produit'})}"/>
-</head>
-<body>
-<th:block th:replace="~{fragments/layout :: navbar}"/>
-
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: html(${produit?.get('titre')} ?: 'Produit', ~{::main})}">
 <main>
-  <div class="container" style="max-width:900px">
+<div class="container py-4" th:if="${produit != null}">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/catalogue}">Catalogue</a></li>
+            <li class="breadcrumb-item active" th:text="${produit.get('titre')}">–</li>
+        </ol>
+    </nav>
 
-    <a th:href="@{/catalogue}" style="font-family:var(--font-head);font-size:0.65rem;
-       letter-spacing:2px;color:var(--text-dim);text-decoration:none;
-       display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1.5rem">
-      ◀ RETOUR AU CATALOGUE
-    </a>
-
-    <div th:if="${produit == null}" class="alert alert-error">Produit introuvable.</div>
-
-    <div th:if="${produit != null}"
-         style="display:grid;grid-template-columns:300px 1fr;gap:2rem;align-items:start">
-
-      <!-- IMAGE -->
-      <div class="card" style="overflow:hidden">
-        <div style="height:300px;display:flex;align-items:center;justify-content:center;
-                    background:var(--bg3);font-size:6rem">
-          <img th:if="${produit.imagePrincipaleUrl != null}"
-               th:src="${produit.imagePrincipaleUrl}"
-               th:alt="${produit.nom}"
-               style="width:100%;height:100%;object-fit:cover"/>
-          <span th:unless="${produit.imagePrincipaleUrl != null}">🎮</span>
-        </div>
-      </div>
-
-      <!-- INFOS -->
-      <div>
-        <div class="section-label" th:text="${produit.plateforme ?: produit.typeCategorie}"></div>
-        <h1 style="font-family:var(--font-head);font-size:1.6rem;margin-bottom:1rem"
-            th:text="${produit.nom}"></h1>
-
-        <div style="font-family:var(--font-head);font-size:2rem;color:var(--accent);margin-bottom:1rem"
-             th:text="${produit.prixNeuf != null
-               ? #numbers.formatDecimal(produit.prixNeuf,1,2) + ' €'
-               : (produit.prixOccasion != null
-                  ? #numbers.formatDecimal(produit.prixOccasion,1,2) + ' € (Occasion)'
-                  : 'N/A')}">
+    <div class="row g-4">
+        <!-- Image -->
+        <div class="col-md-4 text-center">
+            <div class="card p-4">
+                <img th:if="${produit.get('imageUrl') != null}" th:src="${produit.get('imageUrl')}"
+                     class="img-fluid" style="max-height:280px;object-fit:contain" alt=""/>
+                <i class="bi bi-controller display-1 text-muted" th:unless="${produit.get('imageUrl') != null}"></i>
+            </div>
         </div>
 
-        <p style="color:var(--text-dim);line-height:1.7;margin-bottom:1.5rem"
-           th:text="${produit.description ?: 'Aucune description disponible.'}"></p>
+        <!-- Infos -->
+        <div class="col-md-8">
+            <div class="text-muted small mb-1" th:text="${produit.get('plateforme')}">–</div>
+            <h2 class="fw-bold" th:text="${produit.get('titre')}">–</h2>
+            <div class="text-muted mb-3" th:text="${produit.get('editeur')}">–</div>
 
-        <div class="info-row" th:if="${produit.editeur != null}">
-          <span class="label">Éditeur</span>
-          <span th:text="${produit.editeur}"></span>
-        </div>
-        <div class="info-row" th:if="${produit.pegi != null}">
-          <span class="label">PEGI</span>
-          <span th:text="${produit.pegi} + '+'"></span>
-        </div>
-        <div class="info-row" th:if="${produit.noteMoyenne != null}">
-          <span class="label">Note</span>
-          <span th:text="'⭐ ' + ${#numbers.formatDecimal(produit.noteMoyenne,1,1)} + '/5'"></span>
-        </div>
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="display-6 fw-bold" th:text="${produit.get('prix')} + ' €'">–</div>
+                <span th:if="${produit.get('noteMoyenne') != null}" class="badge bg-warning text-dark fs-6">
+                    <i class="bi bi-star-fill me-1"></i><span th:text="${produit.get('noteMoyenne')}">–</span>/5
+                </span>
+                <span class="badge bg-success" th:if="${produit.get('stockDisponible')}">En stock</span>
+                <span class="badge bg-secondary" th:unless="${produit.get('stockDisponible')}">Rupture</span>
+            </div>
 
-        <form th:action="@{/panier/ajouter}" method="post" style="margin-top:1.5rem">
-          <input type="hidden" name="produitId"  th:value="${produit.id}"/>
-          <input type="hidden" name="produitNom" th:value="${produit.nom}"/>
-          <input type="hidden" name="prix"       th:value="${produit.prixNeuf ?: produit.prixOccasion}"/>
-          <button type="submit" class="btn btn-primary">🛒 Ajouter au panier</button>
-          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        </form>
-      </div>
+            <div class="mb-4" th:if="${produit.get('description') != null}">
+                <p class="text-muted" th:text="${produit.get('description')}">–</p>
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap" th:if="${session.jwt != null}">
+                <form th:action="@{/panier/ajouter}" method="post">
+                    <input type="hidden" name="produitId" th:value="${produit.get('id')}"/>
+                    <input type="hidden" name="quantite" value="1"/>
+                    <button type="submit" class="btn btn-purple" th:disabled="${!produit.get('stockDisponible')}">
+                        <i class="bi bi-cart-plus me-2"></i>Ajouter au panier
+                    </button>
+                </form>
+                <a th:href="@{/garanties/verifier(produitId=${produit.get('id')})}" class="btn btn-outline-secondary">
+                    <i class="bi bi-shield-check me-1"></i>Vérifier garantie
+                </a>
+            </div>
+            <div th:unless="${session.jwt != null}">
+                <a th:href="@{/auth/login}" class="btn btn-purple">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter pour acheter
+                </a>
+            </div>
+
+            <!-- Détails techniques -->
+            <div class="mt-4">
+                <div class="row g-2 text-muted small">
+                    <div class="col-6" th:if="${produit.get('categorie') != null}">
+                        <span class="fw-semibold text-dark">Catégorie :</span> <span th:text="${produit.get('categorie')}">–</span>
+                    </div>
+                    <div class="col-6" th:if="${produit.get('dateParution') != null}">
+                        <span class="fw-semibold text-dark">Parution :</span> <span th:text="${produit.get('dateParution')}">–</span>
+                    </div>
+                    <div class="col-6" th:if="${produit.get('pegi') != null}">
+                        <span class="fw-semibold text-dark">PEGI :</span> <span th:text="${produit.get('pegi')}">–</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-  </div>
+<div class="container py-5 text-center text-muted" th:unless="${produit != null}">
+    <i class="bi bi-exclamation-circle fs-1 d-block mb-2"></i>
+    Produit introuvable.
+    <div class="mt-2"><a th:href="@{/catalogue}" class="btn btn-outline-secondary btn-sm">Retour au catalogue</a></div>
+</div>
 </main>
-
-<th:block th:replace="~{fragments/layout :: footer}"/>
-<th:block th:replace="~{fragments/layout :: scripts}"/>
-</body>
 </html>

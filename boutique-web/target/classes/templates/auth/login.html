@@ -1,66 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <th:block th:replace="~{fragments/layout :: head('Connexion')}"/>
-</head>
-<body>
-<th:block th:replace="~{fragments/layout :: navbar}"/>
-
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: html('Connexion', ~{::main})}">
 <main>
-  <div class="container-sm" style="padding-top:3rem">
+<div class="min-vh-100 d-flex align-items-center justify-content-center" style="background:linear-gradient(135deg,#0f0f1a 0%,#1a1a3e 100%)">
+    <div class="card shadow-lg" style="width:420px">
+        <div class="card-body p-5">
+            <div class="text-center mb-4">
+                <div class="fs-1">🎮</div>
+                <h2 class="fw-bold">Connexion</h2>
+                <p class="text-muted small">Accédez à votre espace BoutiqueJeux</p>
+            </div>
 
-    <div class="card card-accent-top">
-      <div class="card-header">// CONNEXION</div>
-      <div class="card-body">
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i><span th:text="${errorMessage}"></span>
+            </div>
+            <div th:if="${successMessage}" class="alert alert-success">
+                <i class="bi bi-check-circle-fill me-2"></i><span th:text="${successMessage}"></span>
+            </div>
 
-        <div th:if="${param.error}" class="alert alert-error">
-          Email ou mot de passe incorrect.
+            <form th:action="@{/auth/login}" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" name="email" class="form-control" placeholder="vous@exemple.fr"
+                               th:value="${rememberedEmail}" required autofocus/>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Mot de passe</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" name="motDePasse" id="pwd" class="form-control" placeholder="••••••••" required/>
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePwd()"><i class="bi bi-eye" id="eyeIcon"></i></button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Type de compte</label>
+                    <select name="userType" class="form-select">
+                        <option value="CLIENT" th:selected="${rememberedType == 'CLIENT' or rememberedType == null}">👤 Client</option>
+                        <option value="EMPLOYE" th:selected="${rememberedType == 'EMPLOYE'}">🔧 Employé</option>
+                    </select>
+                </div>
+                <div class="mb-4 d-flex align-items-center justify-content-between">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe"
+                               th:checked="${rememberedEmail != null}"/>
+                        <label class="form-check-label small" for="rememberMe">Se souvenir de moi</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-purple w-100 py-2 fw-semibold">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                </button>
+            </form>
+
+            <hr class="my-4"/>
+            <p class="text-center text-muted small mb-0">
+                Pas encore de compte ?
+                <a th:href="@{/auth/inscription}" class="text-decoration-none fw-semibold">Créer un compte</a>
+            </p>
         </div>
-        <div th:if="${param.logout}" class="alert alert-info">
-          Vous avez été déconnecté.
-        </div>
-        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
-
-        <form th:action="@{/auth/login}" method="post">
-
-          <div class="form-group">
-            <label class="form-label" for="username">Email</label>
-            <input class="form-control" type="email" id="username" name="username"
-                   placeholder="votre@email.com" required autofocus/>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="password">Mot de passe</label>
-            <input class="form-control" type="password" id="password" name="password"
-                   placeholder="••••••••" required/>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="userType">Type de compte</label>
-            <select class="form-control form-control-select" id="userType" name="userType">
-              <option value="CLIENT">Client</option>
-              <option value="EMPLOYE">Employé</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-full" style="margin-top:0.5rem">
-            Connexion
-          </button>
-
-          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        </form>
-
-        <p style="text-align:center;margin-top:1.5rem;font-size:0.85rem;color:var(--text-dim)">
-          Pas encore de compte ?
-          <a th:href="@{/auth/inscription}">Créer un compte</a>
-        </p>
-      </div>
     </div>
-
-  </div>
+</div>
+<script>
+function togglePwd() {
+    const i = document.getElementById('pwd');
+    const e = document.getElementById('eyeIcon');
+    i.type = i.type === 'password' ? 'text' : 'password';
+    e.className = i.type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+}
+</script>
 </main>
-
-<th:block th:replace="~{fragments/layout :: footer}"/>
-<th:block th:replace="~{fragments/layout :: scripts}"/>
-</body>
 </html>
